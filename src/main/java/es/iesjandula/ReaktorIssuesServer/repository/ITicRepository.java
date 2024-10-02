@@ -9,6 +9,6 @@ import es.iesjandula.ReaktorIssuesServer.models.Tic;
 
 public interface ITicRepository extends JpaRepository<Tic, String>
 {
-	@Query("SELECT new es.iesjandula.ReaktorIssuesServer.models.Tic(t.id, t.numeroAula, t.nombreProfesor, t.fechaDeteccion, t.descripcionIncidencia, t.finalizada from Tic t)")
-	List <Tic> getTics();
+	@Query("SELECT new es.iesjandula.ReaktorIssuesServer.models.Tic(t.id, t.numeroAula, t.nombreProfesor, t.fechaDeteccion, t.descripcionIncidencia, t.finalizada) FROM Tic t")
+	List<Tic> getTics();
 }

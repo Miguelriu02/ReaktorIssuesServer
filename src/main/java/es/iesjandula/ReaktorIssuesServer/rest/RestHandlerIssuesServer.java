@@ -28,16 +28,16 @@ public class RestHandlerIssuesServer
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/tic")
 	public ResponseEntity<?> postTic(
-	        @RequestParam(required = true) String numeroAula,
-	        @RequestParam(required = true) String nombreProfesor,
-	        @RequestParam(required = true) @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaDeteccion,
-	        @RequestParam(required = true) String descripcionIncidencia)
+	        @RequestParam(value = "numeroAula", required = true) String numeroAula,
+	        @RequestParam(value = "nombreProfesor", required = true) String nombreProfesor,
+	        @RequestParam(value = "fechaDeteccion", required = true) @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaDeteccion,
+	        @RequestParam(value = "descripcion", required = true) String descripcionIncidencia)
 	{
 	    try
 	    {
 	        
 	        Tic tic = new Tic(numeroAula, nombreProfesor, fechaDeteccion, descripcionIncidencia, false);
-
+	        ticRepository.save(tic);
 	        
 	        log.info("Tic Info: Aula: {}, Profesor: {}, Fecha: {}, Descripción: {}",
 	                 tic.getNumeroAula(), tic.getNombreProfesor(), tic.getFechaDeteccion(), tic.getDescripcionIncidencia());
@@ -58,7 +58,8 @@ public class RestHandlerIssuesServer
 	{
 		try
 		{
-			return ResponseEntity.ok().body(this.ticRepository.getTics()) ;
+			List<Tic> tics = this.ticRepository.findAll();
+			return ResponseEntity.ok().body(tics);
 		}
 		catch (Exception exception)
 		{
@@ -70,7 +71,7 @@ public class RestHandlerIssuesServer
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT, value= "/deleteTics")
-	public ResponseEntity<?> eliminarIncidenciasTics( @RequestParam(required = true) Integer id)
+	public ResponseEntity<?> eliminarIncidenciasTics( @RequestParam(value = "id", required = true) Integer id)
 	{
 		try
 		{
@@ -78,8 +79,10 @@ public class RestHandlerIssuesServer
 			listaTics= this.ticRepository.getTics();
 			
 			for (Tic tic : listaTics) {
-				if(tic.getId().equals(id)) {
+				if(tic.getId().equals(id))
+				{
 					tic.setFinalizada(true);
+					ticRepository.save(tic);
 				}
 			}
 		
@@ -93,5 +96,4 @@ public class RestHandlerIssuesServer
 			return ResponseEntity.status(500).body(serverError.getMapError());
 		}
 	}
-	
 }
