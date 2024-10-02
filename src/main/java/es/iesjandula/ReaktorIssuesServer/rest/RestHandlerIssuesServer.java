@@ -1,39 +1,8 @@
 package es.iesjandula.ReaktorIssuesServer.rest;
 
-<<<<<<< Updated upstream
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import lombok.extern.slf4j.Slf4j;
-
-@RestController
-@RequestMapping("incidencias/tic")
-@Slf4j
-public class RestHandlerIssuesServer
-{
-	
-=======
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.format.annotation.DateTimeFormat;
-
-
-import es.iesjandula.ReaktorIssuesServer.error.IssuesServerError;
-import es.iesjandula.ReaktorIssuesServer.models.Tic;import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Date;
 
-import org.springframework.format.an
-
-import es.iesjandula.ReaktorIssuesServer.error.IssuesServerError;
-import es.iesjandula.ReaktorIssuesServer.models.Tic;notation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,9 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import es.iesjandula.ReaktorIssuesServer.error.IssuesServerError;
 import es.iesjandula.ReaktorIssuesServer.models.Tic;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("incidencias/tic")
+@Slf4j
 public class RestHandlerIssuesServer
 {
 	@RequestMapping(method = RequestMethod.POST, value = "/tic")
@@ -76,5 +47,4 @@ public class RestHandlerIssuesServer
 	    }
 	}
 
->>>>>>> Stashed changes
 }

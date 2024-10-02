@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Tic
 {
-<<<<<<< Updated upstream
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -34,19 +34,6 @@ public class Tic
 	private Date fechaDeteccion;
 	
 	@Column
-=======
-
-	/** Numero de la aula donde se produce la incidencia */
-	private String numeroAula;
-	
-	/** Nombre del profesor que pone la incidencia */
-	private String nombreProfesor;
-	
-	/** Fecha de deteccion de la incidencia */
-	private Date fechaDeteccion;
-	
-	/** Descripcion de la incidencia */
->>>>>>> Stashed changes
 	private String descripcionIncidencia;
 	
 	@Column
