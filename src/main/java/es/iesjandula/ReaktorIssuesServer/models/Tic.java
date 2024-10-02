@@ -12,33 +12,38 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+//Anotación que indica que esta clase es una entidad JPA
 @Entity
+//Esta anotacion especifica el nombre de la tabla de la base de datos
 @Table(name = "tic")
+//Lombok generará automáticamente los métodos getter y setter, contructor con parametros y sin parámetros
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Tic
-{
+public class Tic {
 
+	// Anotación que indica que este campo es la clave primaria
 	@Id
+	// Anotación que indica que el valor de este campo se generará automáticamente
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Integer id; // Identificador único para cada incidencia TIC
+	
+	@Column // Indica que este campo se mapeará a una columna en la tabla
+	private String numeroAula; // Número del aula o nombre donde se detectó la incidencia
 	
 	@Column
-	private String numeroAula;
+	private String nombreProfesor; // Nombre del profesor que reportó la incidencia
 	
 	@Column
-	private String nombreProfesor;
+	private Date fechaDeteccion; // Fecha en que se detectó la incidencia
 	
 	@Column
-	private Date fechaDeteccion;
+	private String descripcionIncidencia; // Descripción de la Incidencia
 	
 	@Column
-	private String descripcionIncidencia;
-	
-	@Column
-	private boolean finalizada = false;
+	private boolean finalizada = false; // Estado de la incidencia, por defecto no finalizada
 
+	// Constructor que permite crear una instancia de Tic sin el campo 'id'
 	public Tic(String numeroAula, String nombreProfesor, Date fechaDeteccion, String descripcionIncidencia,
 			boolean finalizada) {
 		super();

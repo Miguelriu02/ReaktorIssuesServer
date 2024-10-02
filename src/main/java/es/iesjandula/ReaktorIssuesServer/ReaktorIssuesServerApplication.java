@@ -6,9 +6,11 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan(basePackages = "es.iesjandula")
-public class ReaktorIssuesServerApplication {
+public class ReaktorIssuesServerApplication
+{
 
-	public static void main(String[] args) {
+	public static void main(String[] args)
+	{
 		SpringApplication.run(ReaktorIssuesServerApplication.class, args);
 	}
 

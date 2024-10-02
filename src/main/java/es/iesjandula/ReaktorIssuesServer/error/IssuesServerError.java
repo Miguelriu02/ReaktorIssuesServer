@@ -14,7 +14,7 @@ public class IssuesServerError extends Exception
 {
 
 	/**
-	 * This is the auto-generated ID
+	 * Auto-generated ID
 	 */
 	private static final long serialVersionUID = 8144321039123138732L;
 
@@ -23,7 +23,8 @@ public class IssuesServerError extends Exception
 	private String message;
 
 	private Exception exception;
-
+	
+	//Constructor completo
 	public IssuesServerError(int id, String message, Exception exception)
 	{
 		super();
@@ -31,14 +32,15 @@ public class IssuesServerError extends Exception
 		this.message = message;
 		this.exception = exception;
 	}
-
+	//Constructor sin la Excepcion
 	public IssuesServerError(int id, String message)
 	{
 		super();
 		this.id = id;
 		this.message = message;
 	}
-
+	
+	//Metodo que devuelve un Mapa con la Excepción propia
 	public Map<String, String> getMapError()
 	{
 		Map<String, String> mapError = new HashMap<String, String>();
@@ -54,5 +56,4 @@ public class IssuesServerError extends Exception
 
 		return mapError;
 	}
-
 }
