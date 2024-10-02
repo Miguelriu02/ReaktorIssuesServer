@@ -37,5 +37,16 @@ public class Tic
 	private String descripcionIncidencia;
 	
 	@Column
-	private boolean finalizada;
+	private boolean finalizada = false;
+
+	public Tic(String numeroAula, String nombreProfesor, Date fechaDeteccion, String descripcionIncidencia,
+			boolean finalizada) {
+		super();
+		this.numeroAula = numeroAula;
+		this.nombreProfesor = nombreProfesor;
+		this.fechaDeteccion = fechaDeteccion;
+		this.descripcionIncidencia = descripcionIncidencia;
+		this.finalizada = finalizada;
+	}
+	
 }
