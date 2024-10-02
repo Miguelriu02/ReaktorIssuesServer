@@ -1,6 +1,8 @@
 package es.iesjandula.ReaktorIssuesServer.rest;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -66,4 +68,30 @@ public class RestHandlerIssuesServer
 			return ResponseEntity.status(500).body(serverError.getMapError());
 		}
 	}
+	
+	@RequestMapping(method = RequestMethod.PUT, value= "/deleteTics")
+	public ResponseEntity<?> eliminarIncidenciasTics( @RequestParam(required = true) Integer id)
+	{
+		try
+		{
+			List<Tic> listaTics = new ArrayList<Tic>();
+			listaTics= this.ticRepository.getTics();
+			
+			for (Tic tic : listaTics) {
+				if(tic.getId().equals(id)) {
+					tic.setFinalizada(true);
+				}
+			}
+		
+			return ResponseEntity.ok().body("Tic con ID"+ id+ "ha sido modificada correctamente") ;
+		}
+		catch (Exception exception)
+		{
+			String message = "No se ha podido modificar la lista de Tics";
+			log.error(message, exception);
+			IssuesServerError serverError= new IssuesServerError(1, message, exception);
+			return ResponseEntity.status(500).body(serverError.getMapError());
+		}
+	}
+	
 }
