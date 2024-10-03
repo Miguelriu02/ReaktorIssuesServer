@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class IssuesServerError extends Exception
 {
-
 	/**
 	 * Auto-generated ID
 	 */

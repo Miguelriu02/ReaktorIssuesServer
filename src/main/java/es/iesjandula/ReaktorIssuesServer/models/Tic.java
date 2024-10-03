@@ -1,7 +1,6 @@
 package es.iesjandula.ReaktorIssuesServer.models;
 
-import java.util.Date;
-
+import es.iesjandula.ReaktorIssuesServer.utils.Utils;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,7 +21,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Tic
 {
-
 	// Anotación que indica que este campo es la clave primaria
 	@Id
 	// Anotación que indica que el valor de este campo se generará automáticamente
@@ -36,7 +34,7 @@ public class Tic
 	private String nombreProfesor; // Nombre del profesor que reportó la incidencia
 
 	@Column
-	private Date fechaDeteccion; // Fecha en que se detectó la incidencia
+	private String fechaDeteccion = Utils.getAhora(); // Fecha en que se detectó la incidencia
 
 	@Column
 	private String descripcionIncidencia; // Descripción de la Incidencia
@@ -48,15 +46,12 @@ public class Tic
 	private String finalizadaPor; // Nombre de la persona que finaliza la Incidencia
 
 	// Constructor que permite crear una instancia de Tic sin el campo 'id'
-	public Tic(String numeroAula, String nombreProfesor, Date fechaDeteccion, String descripcionIncidencia,
-			boolean finalizada)
+	public Tic(String numeroAula, String nombreProfesor, String descripcionIncidencia)
 	{
 		super();
 		this.numeroAula = numeroAula;
 		this.nombreProfesor = nombreProfesor;
-		this.fechaDeteccion = fechaDeteccion;
 		this.descripcionIncidencia = descripcionIncidencia;
-		this.finalizada = finalizada;
 	}
 
 }
