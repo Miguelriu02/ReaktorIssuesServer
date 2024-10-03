@@ -20,32 +20,37 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Tic {
+public class Tic
+{
 
 	// Anotación que indica que este campo es la clave primaria
 	@Id
 	// Anotación que indica que el valor de este campo se generará automáticamente
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id; // Identificador único para cada incidencia TIC
-	
+
 	@Column // Indica que este campo se mapeará a una columna en la tabla
 	private String numeroAula; // Número del aula o nombre donde se detectó la incidencia
-	
+
 	@Column
 	private String nombreProfesor; // Nombre del profesor que reportó la incidencia
-	
+
 	@Column
 	private Date fechaDeteccion; // Fecha en que se detectó la incidencia
-	
+
 	@Column
 	private String descripcionIncidencia; // Descripción de la Incidencia
-	
+
 	@Column
 	private boolean finalizada = false; // Estado de la incidencia, por defecto no finalizada
+	
+	@Column
+	private String finalizadaPor; // Nombre de la persona que finaliza la Incidencia
 
 	// Constructor que permite crear una instancia de Tic sin el campo 'id'
 	public Tic(String numeroAula, String nombreProfesor, Date fechaDeteccion, String descripcionIncidencia,
-			boolean finalizada) {
+			boolean finalizada)
+	{
 		super();
 		this.numeroAula = numeroAula;
 		this.nombreProfesor = nombreProfesor;
@@ -53,5 +58,5 @@ public class Tic {
 		this.descripcionIncidencia = descripcionIncidencia;
 		this.finalizada = finalizada;
 	}
-	
+
 }

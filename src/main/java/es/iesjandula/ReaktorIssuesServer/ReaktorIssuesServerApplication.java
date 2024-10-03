@@ -10,9 +10,12 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan(basePackages = "es.iesjandula")
 public class ReaktorIssuesServerApplication
 {
-	 // El main es el punto de entrada de la aplicación, aquí es donde comienza la ejecución.
-    // SpringApplication.run() arranca el contexto de Spring, inicializando todos los beans y configuraciones necesarias.
-	public static void main(String[] args) {
+	// El main es el punto de entrada de la aplicación, aquí es donde comienza la
+	// ejecución.
+	// SpringApplication.run() arranca el contexto de Spring, inicializando todos
+	// los beans y configuraciones necesarias.
+	public static void main(String[] args)
+	{
 		SpringApplication.run(ReaktorIssuesServerApplication.class, args);
 	}
 
