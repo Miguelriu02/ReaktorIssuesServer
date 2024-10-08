@@ -16,5 +16,4 @@ public class ReaktorIssuesServerApplication
 	{
 		SpringApplication.run(ReaktorIssuesServerApplication.class, args);
 	}
-
 }

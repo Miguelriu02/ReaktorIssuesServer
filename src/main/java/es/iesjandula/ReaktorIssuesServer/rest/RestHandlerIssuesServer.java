@@ -92,13 +92,14 @@ public class RestHandlerIssuesServer
 	// Método PUT para marcar una incidencia TIC como finalizada
 	@RequestMapping(method = RequestMethod.PUT, value = "/updateTic")
 	public ResponseEntity<?> actualizarTic(
-	        @RequestParam(value = "id", required = true) String correo, 
-	        @RequestParam(value = "usuario", required = true) String finalizadaPor,
+	        @RequestParam(value = "id", required = true) Integer id, 
+	        @RequestParam(value = "usuario", required = true) String identificadorUserAdmin,
 	        @RequestParam(value = "solucion", required = true) String solucion)
 	{
 	    
-	    String logMessage = "Tic con Correo: " + correo + " ha sido modificada correctamente";
-	    try {
+	    String logMessage = "Tic con Id: " + id + " ha sido modificada correctamente";
+	    try
+	    {
 	        // Obtener todas las incidencias TIC desde el repositorio
 	        List<Tic> listaTics = this.ticRepository.getTics();
 
@@ -111,14 +112,25 @@ public class RestHandlerIssuesServer
 
 	        // Variable para verificar si se encontró el ID
 	        boolean ticEncontrada = false;
-
+	        
+	        String idUserAdmin = "";
+	        
+	        if(identificadorUserAdmin.toLowerCase().equals("admin") || identificadorUserAdmin.toLowerCase().equals("administrador"))
+	        {
+	        	idUserAdmin = Usuarios.ADMINISTRADOR.toString();
+	        }
+	        else
+	        {
+	        	idUserAdmin = Usuarios.USUARIO.toString();
+	        }
+	        
 	        // Recorrer la lista de TICs y buscar la incidencia con el ID proporcionado
 	        for (Tic tic : listaTics)
 	        {
-	            if (tic.getCorreo().equals(correo))
+	            if (tic.getId().equals(id))
 	            {
 	                tic.setEstado(Estado.FINALIZADO);
-	                tic.setFinalizadaPor(Usuarios.ADMINISTRADOR.toString());
+	                tic.setFinalizadaPor(idUserAdmin);
 	                tic.setSolucion(solucion);
 	                ticRepository.saveAndFlush(tic);
 	                ticEncontrada = true;
@@ -150,61 +162,93 @@ public class RestHandlerIssuesServer
 	}
 	
 	// Método PUT para marcar una incidencia TIC como finalizada
-		@RequestMapping(method = RequestMethod.PUT, value = "/cancelTic")
-		public ResponseEntity<?> cancelarTic(
-		        @RequestParam(value = "id", required = true) Integer id, 
-		        @RequestParam(value = "usuario", required = true) String identificadorUA,
-		        @RequestParam(value = "motivo", required = true) String motivo)
-		{
-			String logMessage = "Tic con ID: " + id + " ha sido cancelado correctamente";
-		    try {
-		        // Obtener todas las incidencias TIC desde el repositorio
-		        List<Tic> listaTics = this.ticRepository.getTics();
+	@RequestMapping(method = RequestMethod.PUT, value = "/cancelTic")
+	public ResponseEntity<?> cancelarTic(
+	        @RequestParam(value = "id", required = true) Integer id, 
+	        @RequestParam(value = "usuario", required = true) String identificadorUserAdmin,
+	        @RequestParam(value = "motivo", required = true) String motivo)
+	{
+		String logMessage = "Tic con ID: " + id + " ha sido cancelado correctamente";
+	    try {
+	        // Obtener todas las incidencias TIC desde el repositorio
+	        List<Tic> listaTics = this.ticRepository.getTics();
 
-		        // Verificar si la lista es nula o está vacía
-		        if (listaTics == null || listaTics.isEmpty())
-		        {
-		            log.error(Constantes.DATABASE_EMPTY);
-		            return ResponseEntity.status(Constantes.BAD_REQUEST).body(Constantes.DATABASE_EMPTY);
-		        }
+	        // Verificar si la lista es nula o está vacía
+	        if (listaTics == null || listaTics.isEmpty())
+	        {
+	            log.error(Constantes.DATABASE_EMPTY);
+	            return ResponseEntity.status(Constantes.BAD_REQUEST).body(Constantes.DATABASE_EMPTY);
+	        }
 
-		        // Variable para verificar si se encontró el ID
-		        boolean ticEncontrada = false;
-
-		        // Recorrer la lista de TICs y buscar la incidencia con el ID proporcionado
-		        for (Tic tic : listaTics)
-		        {
-		            if (tic.getId().equals(id))
-		            {
-		                tic.setEstado(Estado.CANCELADA);
-		                tic.setFinalizadaPor(Usuarios.ADMINISTRADOR.toString());
+	        // Variable para verificar si se encontró el ID
+	        boolean ticEncontrada = false;
+	        
+	        String idUserAdmin = "";
+	        
+	        if(identificadorUserAdmin.toLowerCase().equals("admin") || identificadorUserAdmin.toLowerCase().equals("administrador"))
+	        {
+	        	idUserAdmin = Usuarios.ADMINISTRADOR.toString();
+	        }
+	        else
+	        {
+	        	idUserAdmin = Usuarios.USUARIO.toString();
+	        }
+	        
+	        // Recorrer la lista de TICs y buscar la incidencia con el ID proporcionado
+	        for (Tic tic : listaTics)
+	        {
+	            if (tic.getId().equals(id))
+	            {
+	                if(!tic.getEstado().equals(Estado.FINALIZADO))
+	                {
+	                	tic.setEstado(Estado.CANCELADA);
+		                tic.setFinalizadaPor(idUserAdmin);
 		                tic.setSolucion(motivo);
-		                ticRepository.saveAndFlush(tic);
+	                	ticRepository.saveAndFlush(tic);
 		                ticEncontrada = true;
-		                break;  // Salir del bucle una vez que se encuentra
-		            }
-		        }
-		        if (!ticEncontrada)
-		        {
-		            logMessage = Constantes.UPDATE_FAILURE_NOT_EXISTS;
-		            log.error(logMessage);
-		            return ResponseEntity.status(Constantes.NOT_FOUND).body(logMessage);
-		        }
+		                break;
+	                }
+	                else
+	                {
+	                	logMessage = "No puedes cancelar un Tic finalizado";
+	                	break;  // Salir del bucle una vez que se encuentra
+	                }
+	            }
+	        }
+	        if (!ticEncontrada)
+	        {
+	            logMessage = Constantes.CANCEL_FAILURE_NOT_EXISTS;
+	            log.error(logMessage);
+	            return ResponseEntity.status(Constantes.NOT_FOUND).body(logMessage);
+	        }
 
-		        // Responder indicando que la incidencia fue modificada correctamente
-		        log.info(logMessage);
-		        return ResponseEntity.ok().body(logMessage);
-		        
-		    }
-		    catch (Exception exception)
-		    {
-		        // Manejo de errores: en caso de que ocurra una excepción, se registra el error
-		        String message = Constantes.UPDATE_TIC_FAILURE;
-		        log.error(message, exception);
+	        // Responder indicando que la incidencia fue modificada correctamente
+	        log.info(logMessage);
+	        return ResponseEntity.ok().body(logMessage);
+	        
+	    }
+	    catch (Exception exception)
+	    {
+	        // Manejo de errores: en caso de que ocurra una excepción, se registra el error
+	        String message = Constantes.UPDATE_TIC_FAILURE;
+	        log.error(message, exception);
 
-		        // Se crea un objeto IssuesServerError para enviar detalles del error
-		        IssuesServerError serverError = new IssuesServerError(1, message, exception);
-		        return ResponseEntity.status(Constantes.SERVER_ERROR).body(serverError.getMapError());
-		    }
-		}
+	        // Se crea un objeto IssuesServerError para enviar detalles del error
+	        IssuesServerError serverError = new IssuesServerError(1, message, exception);
+	        return ResponseEntity.status(Constantes.SERVER_ERROR).body(serverError.getMapError());
+	    }
+	}
+	
+	/*
+	// Método PUT para marcar una incidencia TIC como finalizada
+	@RequestMapping(method = RequestMethod.PUT, value = "/cancelTic")
+	public ResponseEntity<?> filtrarTic(
+	        @RequestParam(value = "id", required = true) Integer id, 
+	        @RequestParam(value = "usuario", required = true) String identificadorUserAdmin,
+	        @RequestParam(value = "motivo", required = true) String motivo)
+	{
+		return null;
+	}
+	*/
+	
 }
