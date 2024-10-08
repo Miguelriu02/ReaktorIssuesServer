@@ -21,15 +21,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Tic
 {
+	// Anotación que indica que este campo es la clave primaria y se auto-genera
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Integer id; // Identificador único para cada incidencia TIC
 	
-	// Anotación que indica que este campo es la clave primaria
-	@Column
-	private String correo; // Identificador único para cada incidencia TIC
-
 	@Column // Indica que este campo se mapeará a una columna en la tabla
+	private String correo; //Correo del usuario que genera el Tic
+
+	@Column
 	private String numeroAula; // Número del aula o nombre donde se detectó la incidencia
 
 	@Column
@@ -66,6 +66,12 @@ public class Tic
 	    EN_CURSO,
 	    FINALIZADO,
 		CANCELADA;
+	}
+	
+	public enum Usuarios
+	{
+		ADMINISTRADOR,
+		USUARIO;
 	}
 
 }

@@ -12,12 +12,14 @@ import lombok.NoArgsConstructor;
  * 
  * Atributos: 
  * id: Identificador de la incidencia.
+ * correo: Correo del usuario que genera el Tic
  * numeroAula: Número del aula donde ocurre la incidencia.
  * nombreProfesor: Nombre del profesor que reporta la incidencia.
  * fechaDeteccion: Fecha en la que se detecta la incidencia.
  * descripcionIncidencia: Descripción de la incidencia.
- * finalizada: Indica si la incidencia ha sido resuelta.
- * finalizadaPor: Nombre 
+ * estado: Diferentes estados por los que pasa el Tic.
+ * finalizadaPor: Puede ser Administrador o Usuario.
+ * solucion: Solución dada por la persona que finaliza el Tic
  */
 
 @Data

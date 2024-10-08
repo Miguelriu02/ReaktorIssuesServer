@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import es.iesjandula.ReaktorIssuesServer.error.IssuesServerError;
 import es.iesjandula.ReaktorIssuesServer.models.Tic;
 import es.iesjandula.ReaktorIssuesServer.models.Tic.Estado;
+import es.iesjandula.ReaktorIssuesServer.models.Tic.Usuarios;
 import es.iesjandula.ReaktorIssuesServer.repository.ITicRepository;
 import es.iesjandula.ReaktorIssuesServer.utils.Constantes;
 import lombok.extern.slf4j.Slf4j;
@@ -91,8 +92,8 @@ public class RestHandlerIssuesServer
 	// Método PUT para marcar una incidencia TIC como finalizada
 	@RequestMapping(method = RequestMethod.PUT, value = "/updateTic")
 	public ResponseEntity<?> actualizarTic(
-	        @RequestParam(value = "correo", required = true) String correo, 
-	        @RequestParam(value = "nombre", required = true) String finalizadaPor,
+	        @RequestParam(value = "id", required = true) String correo, 
+	        @RequestParam(value = "usuario", required = true) String finalizadaPor,
 	        @RequestParam(value = "solucion", required = true) String solucion)
 	{
 	    
@@ -117,7 +118,7 @@ public class RestHandlerIssuesServer
 	            if (tic.getCorreo().equals(correo))
 	            {
 	                tic.setEstado(Estado.FINALIZADO);
-	                tic.setFinalizadaPor(finalizadaPor);
+	                tic.setFinalizadaPor(Usuarios.ADMINISTRADOR.toString());
 	                tic.setSolucion(solucion);
 	                ticRepository.saveAndFlush(tic);
 	                ticEncontrada = true;
@@ -152,7 +153,7 @@ public class RestHandlerIssuesServer
 		@RequestMapping(method = RequestMethod.PUT, value = "/cancelTic")
 		public ResponseEntity<?> cancelarTic(
 		        @RequestParam(value = "id", required = true) Integer id, 
-		        @RequestParam(value = "identificador", required = true) String identificadorUA,
+		        @RequestParam(value = "usuario", required = true) String identificadorUA,
 		        @RequestParam(value = "motivo", required = true) String motivo)
 		{
 			String logMessage = "Tic con ID: " + id + " ha sido cancelado correctamente";
@@ -176,7 +177,7 @@ public class RestHandlerIssuesServer
 		            if (tic.getId().equals(id))
 		            {
 		                tic.setEstado(Estado.CANCELADA);
-		                tic.setFinalizadaPor(identificadorUA);
+		                tic.setFinalizadaPor(Usuarios.ADMINISTRADOR.toString());
 		                tic.setSolucion(motivo);
 		                ticRepository.saveAndFlush(tic);
 		                ticEncontrada = true;
