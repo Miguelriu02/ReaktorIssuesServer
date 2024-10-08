@@ -124,7 +124,6 @@ public class RestHandlerIssuesServer
 	                break;  // Salir del bucle una vez que se encuentra
 	            }
 	        }
-
 	        if (!ticEncontrada)
 	        {
 	            logMessage = "No puedes modificar un Tic que no existe";
@@ -133,6 +132,7 @@ public class RestHandlerIssuesServer
 	        }
 
 	        // Responder indicando que la incidencia fue modificada correctamente
+	        log.info(logMessage);
 	        return ResponseEntity.ok().body(logMessage);
 	        
 	    }
