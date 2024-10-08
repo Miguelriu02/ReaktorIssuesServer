@@ -12,6 +12,6 @@ import es.iesjandula.ReaktorIssuesServer.models.Tic;
 public interface ITicRepository extends JpaRepository<Tic, String>
 {
 	// Definimos una consulta personalizada para recuperar una lista de objetos Tic
-	@Query("SELECT new es.iesjandula.ReaktorIssuesServer.models.Tic(t.id, t.numeroAula, t.nombreProfesor, t.fechaDeteccion, t.descripcionIncidencia, t.finalizada, t.finalizadaPor) FROM Tic t")
+	@Query("SELECT new es.iesjandula.ReaktorIssuesServer.models.Tic(t.correo, t.numeroAula, t.nombreProfesor, t.fechaDeteccion, t.descripcionIncidencia, t.estado, t.finalizadaPor, t.solucion) FROM Tic t")
 	List<Tic> getTics(); // Método que devuelve una lista de Tics seleccionados mediante la consulta
 }

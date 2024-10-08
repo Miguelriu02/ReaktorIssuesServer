@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import es.iesjandula.ReaktorIssuesServer.error.IssuesServerError;
 import es.iesjandula.ReaktorIssuesServer.models.Tic;
+import es.iesjandula.ReaktorIssuesServer.models.Tic.Estado;
 import es.iesjandula.ReaktorIssuesServer.repository.ITicRepository;
 import es.iesjandula.ReaktorIssuesServer.utils.Constantes;
 import lombok.extern.slf4j.Slf4j;
@@ -24,15 +25,17 @@ public class RestHandlerIssuesServer
 	private ITicRepository ticRepository;
 
 	// Método para recibir nuevas incidencias TIC mediante una solicitud POST
-	@RequestMapping(method = RequestMethod.POST, value = "/tic")
-	public ResponseEntity<?> postTic(@RequestParam(value = "numeroAula", required = true) String numeroAula,
+	@RequestMapping(method = RequestMethod.POST, value = "/createTic")
+	public ResponseEntity<?> postTic(
+			@RequestParam(value = "correo", required = true) String correo,
+			@RequestParam(value = "numeroAula", required = true) String numeroAula,
 			@RequestParam(value = "nombreProfesor", required = true) String nombreProfesor,
 			@RequestParam(value = "descripcion", required = true) String descripcionIncidencia)
 	{
 		try
 		{
 			// Creación de una nueva instancia de Tic con los datos recibidos
-			Tic tic = new Tic(numeroAula, nombreProfesor, descripcionIncidencia);
+			Tic tic = new Tic(correo,numeroAula, nombreProfesor, descripcionIncidencia);
 
 			// Guarda la nueva incidencia en la base de datos
 			ticRepository.saveAndFlush(tic);
@@ -86,13 +89,14 @@ public class RestHandlerIssuesServer
 	}
 
 	// Método PUT para marcar una incidencia TIC como finalizada
-	@RequestMapping(method = RequestMethod.PUT, value = "/finalizateTic")
+	@RequestMapping(method = RequestMethod.PUT, value = "/updateTic")
 	public ResponseEntity<?> finalizarIncidenciasTics(
-	        @RequestParam(value = "id", required = true) Integer id, 
-	        @RequestParam(value = "finalizada", required = true) String finalizadaPor)
+	        @RequestParam(value = "correo", required = true) String correo, 
+	        @RequestParam(value = "nombre", required = true) String finalizadaPor,
+	        @RequestParam(value = "solucion", required = true) String solucion)
 	{
 	    
-	    String logMessage = "Tic con ID: " + id + " ha sido modificada correctamente";
+	    String logMessage = "Tic con Correo: " + correo + " ha sido modificada correctamente";
 	    try {
 	        // Obtener todas las incidencias TIC desde el repositorio
 	        List<Tic> listaTics = this.ticRepository.getTics();
@@ -110,10 +114,11 @@ public class RestHandlerIssuesServer
 	        // Recorrer la lista de TICs y buscar la incidencia con el ID proporcionado
 	        for (Tic tic : listaTics)
 	        {
-	            if (tic.getId().equals(id))
+	            if (tic.getCorreo().equals(correo))
 	            {
-	                tic.setFinalizada(true);
+	                tic.setEstado(Estado.FINALIZADO);
 	                tic.setFinalizadaPor(finalizadaPor);
+	                tic.setSolucion(solucion);
 	                ticRepository.saveAndFlush(tic);
 	                ticEncontrada = true;
 	                break;  // Salir del bucle una vez que se encuentra
@@ -122,7 +127,7 @@ public class RestHandlerIssuesServer
 
 	        if (!ticEncontrada)
 	        {
-	            logMessage = "No puedes modificar un ID que no existe";
+	            logMessage = "No puedes modificar un Tic que no existe";
 	            log.error(logMessage);
 	            return ResponseEntity.status(Constantes.NOT_FOUND).body(logMessage);
 	        }

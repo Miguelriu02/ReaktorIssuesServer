@@ -2,6 +2,7 @@ package es.iesjandula.ReaktorIssuesServer.dto;
 
 import java.util.Date;
 
+import es.iesjandula.ReaktorIssuesServer.models.Tic.Estado;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,7 @@ import lombok.NoArgsConstructor;
  * fechaDeteccion: Fecha en la que se detecta la incidencia.
  * descripcionIncidencia: Descripción de la incidencia.
  * finalizada: Indica si la incidencia ha sido resuelta.
+ * finalizadaPor: Nombre 
  */
 
 @Data
@@ -33,7 +35,9 @@ public class DtoTic
 
 	private String descripcionIncidencia;
 
-	private boolean finalizada;
+	private Estado estado;
 	
 	private String finalizadaPor;
+	
+	private String solucion;
 }
