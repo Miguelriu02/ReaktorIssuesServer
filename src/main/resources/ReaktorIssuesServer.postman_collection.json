@@ -1,0 +1,140 @@
+{
+	"info": {
+		"_postman_id": "f1d1b926-8d31-48fc-a052-30e1f2195b8d",
+		"name": "ReaktorIssuesServer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30209860"
+	},
+	"item": [
+		{
+			"name": "Crear Tic",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/incidencias/tic/createTic?correo=mriogut600@g.educaand.es&numeroAula=2.1&nombreProfesor=Miguel&descripcion=No funciona nada",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"incidencias",
+						"tic",
+						"createTic"
+					],
+					"query": [
+						{
+							"key": "correo",
+							"value": "mriogut600@g.educaand.es"
+						},
+						{
+							"key": "numeroAula",
+							"value": "2.1"
+						},
+						{
+							"key": "nombreProfesor",
+							"value": "Miguel"
+						},
+						{
+							"key": "descripcion",
+							"value": "No funciona nada"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ver Tics",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/incidencias/tic/getTics",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"incidencias",
+						"tic",
+						"getTics"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modificar Tic",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/incidencias/tic/updateTic?id=4&usuario=Pedro&solucion=Faltaba conectar el cable",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"incidencias",
+						"tic",
+						"updateTic"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "4"
+						},
+						{
+							"key": "usuario",
+							"value": "Pedro"
+						},
+						{
+							"key": "solucion",
+							"value": "Faltaba conectar el cable"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cancelar Tic",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/incidencias/tic/cancelTic?id=4&usuario=Admin&motivo=Hay que llamar al tecnico",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"incidencias",
+						"tic",
+						"cancelTic"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "4"
+						},
+						{
+							"key": "usuario",
+							"value": "Admin"
+						},
+						{
+							"key": "motivo",
+							"value": "Hay que llamar al tecnico"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
