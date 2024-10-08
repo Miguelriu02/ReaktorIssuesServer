@@ -1,0 +1,5 @@
+3) Otro endpoint que se encargue de cancelar una tarea en caso de que el usuario o administador lo decidan, siempre que esté en estado pendiente o en curso, no en otro.
+
+4) Otro endpoint que actúe como un filtro de búsquedas para una tabla de forma descendente en el tiempo: esta implementación será útil para los usuarios y administrador.
+A los usuarios esa tabla solo les aparecerán sus incidencias que crearon.
+El administrador podrá realizar búsquedas de cualquier tipo: por email de la persona que creó la incidencia, por aula, por mensaje descriptivo del problema, por estado de la tarea, y cualquiera que se os ocurra que sea compatible con la propuesta del proyecto.

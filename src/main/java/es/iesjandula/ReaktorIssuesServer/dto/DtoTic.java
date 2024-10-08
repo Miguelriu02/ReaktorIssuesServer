@@ -26,6 +26,8 @@ import lombok.NoArgsConstructor;
 public class DtoTic
 {
 	private Integer id;
+	
+	private String correo;
 
 	private String numeroAula;
 

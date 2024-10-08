@@ -11,6 +11,10 @@ public final class Constantes
     //Constante que aparecerá cuando se quiera obtener los datos de la base de datos y ésta esté vacía
     public static final String DATABASE_EMPTY = "No hay datos en la Base de Datos";
     
+    public static final String UPDATE_FAILURE_NOT_EXISTS = "No puedes modificar un Tic que no existe";
+    
+    public static final String UPDATE_TIC_FAILURE = "No se ha podido modificar la lista de Tics";
+    
     //Constante que aparecerá cuando ocurra un error en el servidor
     public static final Integer SERVER_ERROR = 500;
     

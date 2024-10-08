@@ -3,6 +3,8 @@ package es.iesjandula.ReaktorIssuesServer.models;
 import es.iesjandula.ReaktorIssuesServer.utils.Utils;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -19,8 +21,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Tic
 {
-	// Anotación que indica que este campo es la clave primaria
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	
+	// Anotación que indica que este campo es la clave primaria
+	@Column
 	private String correo; // Identificador único para cada incidencia TIC
 
 	@Column // Indica que este campo se mapeará a una columna en la tabla
@@ -56,9 +62,10 @@ public class Tic
 	
 	public enum Estado
 	{
-	    EN_CURSO,
 	    PENDIENTE,
-	    FINALIZADO;
+	    EN_CURSO,
+	    FINALIZADO,
+		CANCELADA;
 	}
 
 }
