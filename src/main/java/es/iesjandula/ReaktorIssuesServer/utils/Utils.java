@@ -37,9 +37,11 @@ public class Utils
 	    
 		List<Tic> filtrado = new ArrayList<>();
 	    estado = estado.toUpperCase();
+	    List<Tic> filtradoDescendente = new ArrayList<Tic>();
 	    
 	    // Iterar sobre cada elemento en la lista original
-	    for (Tic tic : listaTics) {
+	    for (Tic tic : listaTics)
+	    {
 	        boolean coincide = true;
 
 	        // Verificar cada criterio de filtro
@@ -72,8 +74,13 @@ public class Utils
 	        {
 	            filtrado.add(tic);
 	        }
-	        filtrado.sort((tic1, tic2) -> Integer.compare(tic2.getId(), tic1.getId()));
 	    }
-	    return filtrado;
+	    
+	    for (int i = filtrado.size()-1; i >= 0; i--)
+    	{
+    		filtradoDescendente.add(filtrado.get(i));
+		}
+	    
+	    return filtradoDescendente;
 	}
 }
