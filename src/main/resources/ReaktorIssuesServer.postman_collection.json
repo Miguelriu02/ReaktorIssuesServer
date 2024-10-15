@@ -12,7 +12,7 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8082/incidencias/tic/createTic?correo=mriogut600@g.educaand.es&numeroAula=2.1&nombreProfesor=Miguel&descripcion=No funciona nada",
+					"raw": "http://localhost:8082/incidencias/tic/createTic?correo=mriogut600@google&numeroAula=2.6&nombreProfesor=Julio&descripcion=No funciona algo",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -26,19 +26,19 @@
 					"query": [
 						{
 							"key": "correo",
-							"value": "mriogut600@g.educaand.es"
+							"value": "mriogut600@google"
 						},
 						{
 							"key": "numeroAula",
-							"value": "2.1"
+							"value": "2.6"
 						},
 						{
 							"key": "nombreProfesor",
-							"value": "Miguel"
+							"value": "Julio"
 						},
 						{
 							"key": "descripcion",
-							"value": "No funciona nada"
+							"value": "No funciona algo"
 						}
 					]
 				}
@@ -72,7 +72,7 @@
 				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8082/incidencias/tic/updateTic?id=4&usuario=Pedro&solucion=Faltaba conectar el cable",
+					"raw": "http://localhost:8082/incidencias/tic/updateTic?id=1&usuario=Pedro&solucion=Faltaba conectar el cable",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -86,7 +86,7 @@
 					"query": [
 						{
 							"key": "id",
-							"value": "4"
+							"value": "1"
 						},
 						{
 							"key": "usuario",
@@ -107,7 +107,7 @@
 				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8082/incidencias/tic/cancelTic?id=4&usuario=Admin&motivo=Hay que llamar al tecnico",
+					"raw": "http://localhost:8082/incidencias/tic/cancelTic?id=3&usuario=Admin&motivo=Hay que llamar al tecnico",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -121,7 +121,7 @@
 					"query": [
 						{
 							"key": "id",
-							"value": "4"
+							"value": "3"
 						},
 						{
 							"key": "usuario",
@@ -130,6 +130,63 @@
 						{
 							"key": "motivo",
 							"value": "Hay que llamar al tecnico"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Filtrar Tics",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/incidencias/tic/filtrarTic?usuario=Admin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"incidencias",
+						"tic",
+						"filtrarTic"
+					],
+					"query": [
+						{
+							"key": "usuario",
+							"value": "Admin"
+						},
+						{
+							"key": "correo",
+							"value": "mriogut600@g.educaand.es",
+							"disabled": true
+						},
+						{
+							"key": "aula",
+							"value": "2.6",
+							"disabled": true
+						},
+						{
+							"key": "mensajeDescriptivo",
+							"value": "No funciona algo",
+							"disabled": true
+						},
+						{
+							"key": "estado",
+							"value": "Finalizado",
+							"disabled": true
+						},
+						{
+							"key": "nombreProfesor",
+							"value": "julio",
+							"disabled": true
+						},
+						{
+							"key": "solucion",
+							"value": "Hay",
+							"disabled": true
 						}
 					]
 				}

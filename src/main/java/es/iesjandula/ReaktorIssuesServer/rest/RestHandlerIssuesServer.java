@@ -148,7 +148,7 @@ public class RestHandlerIssuesServer
 	        }
 	        if (!ticEncontrada)
 	        {
-	            logMessage = Constantes.UPDATE_FAILURE_NOT_EXISTS;
+	            logMessage = Constantes.UPDATE_FAILURE_NOT_EXISTS_FINALIZATED_CANCELL;
 	            log.error(logMessage);
 	            return ResponseEntity.status(Constantes.NOT_FOUND).body(logMessage);
 	        }
@@ -213,6 +213,7 @@ public class RestHandlerIssuesServer
 	                	tic.setEstado(Estado.CANCELADA);
 		                tic.setFinalizadaPor(idUserAdmin);
 		                tic.setSolucion(motivo);
+		                tic.setFechaSolucion(Utils.getAhora());
 	                	ticRepository.saveAndFlush(tic);
 		                ticEncontrada = true;
 		                break;
@@ -252,7 +253,12 @@ public class RestHandlerIssuesServer
 	@RequestMapping(method = RequestMethod.GET, value = "/filtrarTic")
 	public ResponseEntity<?> filtrarTic(
 			@RequestParam(value = "usuario", required = true) String usuario,
-	        @RequestParam(value = "correo", required = false) String correo)
+	        @RequestParam(value = "correo", required = false, defaultValue = "") String correo,
+	        @RequestParam(value = "aula", required = false, defaultValue = "") String aula,
+	        @RequestParam(value = "mensajeDescriptivo", required = false, defaultValue = "") String mensaje,
+	        @RequestParam(value = "estado", required = false, defaultValue = "") String estado,
+	        @RequestParam(value = "nombreProfesor", required = false, defaultValue = "") String nombreProfesor,
+	        @RequestParam(value = "solucion", required = false, defaultValue = "") String solucion)
 	{
 		try
 		{
@@ -264,7 +270,16 @@ public class RestHandlerIssuesServer
 				log.error(Constantes.DATABASE_EMPTY);
 				return ResponseEntity.status(Constantes.BAD_REQUEST).body(Constantes.DATABASE_EMPTY);
 			}
-			ticsFiltradas = Utils.filtrarCorreo(tics, correo);
+			
+			if(usuario.toLowerCase().equals("admin") || usuario.toLowerCase().equals("administrador"))
+	        {
+				ticsFiltradas = Utils.filtro(tics, correo, aula, mensaje, estado, nombreProfesor, solucion);
+	        }
+	        else
+	        {
+	        	ticsFiltradas = Utils.filtrarCorreo(tics, correo);
+	        }
+			
 			return ResponseEntity.ok().body(ticsFiltradas);
 		}
 		catch (Exception exception)
@@ -278,5 +293,4 @@ public class RestHandlerIssuesServer
 			return ResponseEntity.status(Constantes.SERVER_ERROR).body(serverError.getMapError());
 		}
 	}
-	
 }

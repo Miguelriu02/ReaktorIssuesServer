@@ -33,69 +33,47 @@ public class Utils
 		return ticFiltrada;
 	}
 	
-	public static List<Tic> filtrarAula (List<Tic> listaTics, String aula)
-	{
-		List<Tic> ticFiltrada = new ArrayList<Tic>();
-		for (Tic tic : listaTics)
-		{
-			if(tic.getAula().equals(aula))
-			{
-				ticFiltrada.add(tic);
-			}
-		}
-		return ticFiltrada;
+	public static List<Tic> filtro(List<Tic> listaTics, String correo, String aula, String mensaje, String estado, String nombreProfesor, String solucion) {
+	    
+		List<Tic> filtrado = new ArrayList<>();
+	    estado = estado.toUpperCase();
+	    
+	    // Iterar sobre cada elemento en la lista original
+	    for (Tic tic : listaTics) {
+	        boolean coincide = true;
+
+	        // Verificar cada criterio de filtro
+	        if (!correo.isBlank() && !tic.getCorreo().equalsIgnoreCase(correo))
+	        {
+	            coincide = false;
+	        }
+	        if (!aula.isBlank() && !tic.getAula().equalsIgnoreCase(aula))
+	        {
+	            coincide = false;
+	        }
+	        if (!mensaje.isBlank() && !tic.getDescripcionIncidencia().contains(mensaje))
+	        {
+	            coincide = false;
+	        }
+	        if (!estado.isBlank() && !tic.getEstado().toString().equals(estado))
+	        {
+	            coincide = false;
+	        }
+	        if (!nombreProfesor.isBlank() && !tic.getNombreProfesor().equalsIgnoreCase(nombreProfesor))
+	        {
+	            coincide = false;
+	        }
+	        if (solucion != null && !solucion.isBlank() && (tic.getSolucion() == null || !tic.getSolucion().contains(solucion))) {
+	            coincide = false;
+	        }
+
+	        // Si cumple con todos los filtros especificados, agregarlo a la lista filtrada
+	        if (coincide)
+	        {
+	            filtrado.add(tic);
+	        }
+	        filtrado.sort((tic1, tic2) -> Integer.compare(tic2.getId(), tic1.getId()));
+	    }
+	    return filtrado;
 	}
-	
-	public static List<Tic> filtrarMensaje (List<Tic> listaTics, String mensajeDescriptivo)
-	{
-		List<Tic> ticFiltrada = new ArrayList<Tic>();
-		for (Tic tic : listaTics)
-		{
-			if(tic.getDescripcionIncidencia().equals(mensajeDescriptivo))
-			{
-				ticFiltrada.add(tic);
-			}
-		}
-		return ticFiltrada;
-	}
-	
-	public static List<Tic> filtrarEstado (List<Tic> listaTics, String estado)
-	{
-		List<Tic> ticFiltrada = new ArrayList<Tic>();
-		for (Tic tic : listaTics)
-		{
-			if(tic.getEstado().equals(estado.toUpperCase()))
-			{
-				ticFiltrada.add(tic);
-			}
-		}
-		return ticFiltrada;
-	}
-	
-	public static List<Tic> filtrarSolucion(List<Tic> listaTics, String solucion)
-	{
-		List<Tic> ticFiltrada = new ArrayList<Tic>();
-		for (Tic tic : listaTics)
-		{
-			if(tic.getSolucion().equals(solucion))
-			{
-				ticFiltrada.add(tic);
-			}
-		}
-		return ticFiltrada;
-	}
-	
-	public static List<Tic> filtrarNombreProfesor(List<Tic> listaTics, String nombreProfesor)
-	{
-		List<Tic> ticFiltrada = new ArrayList<Tic>();
-		for (Tic tic : listaTics)
-		{
-			if(tic.getNombreProfesor().equals(nombreProfesor))
-			{
-				ticFiltrada.add(tic);
-			}
-		}
-		return ticFiltrada;
-	}
-	
 }

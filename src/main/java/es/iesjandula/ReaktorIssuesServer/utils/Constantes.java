@@ -13,7 +13,7 @@ public final class Constantes
     
     public static final String CANCEL_FAILURE_NOT_EXISTS = "No puedes cancelar un Tic que no existe o está Finalizado";
     
-    public static final String UPDATE_FAILURE_NOT_EXISTS = "No puedes modificar un Tic que no existe";
+    public static final String UPDATE_FAILURE_NOT_EXISTS_FINALIZATED_CANCELL = "No puedes modificar un Tic que no existe, esta Finalizado o Cancelado";
     
     public static final String UPDATE_TIC_FAILURE = "No se ha podido modificar la lista de Tics";
     
