@@ -33,8 +33,8 @@ public class Utils
 		return ticFiltrada;
 	}
 	
-	public static List<Tic> filtro(List<Tic> listaTics, String correo, String aula, String mensaje, String estado, String nombreProfesor, String solucion) {
-	    
+	public static List<Tic> filtro(List<Tic> listaTics, String correo, String aula, String mensaje, String estado, String nombreProfesor, String solucion)
+	{
 		List<Tic> filtrado = new ArrayList<>();
 	    estado = estado.toUpperCase();
 	    List<Tic> filtradoDescendente = new ArrayList<Tic>();
@@ -65,7 +65,8 @@ public class Utils
 	        {
 	            coincide = false;
 	        }
-	        if (solucion != null && !solucion.isBlank() && (tic.getSolucion() == null || !tic.getSolucion().contains(solucion))) {
+	        if (solucion != null && !solucion.isBlank() && (tic.getSolucion() == null || !tic.getSolucion().contains(solucion)))
+	        {
 	            coincide = false;
 	        }
 

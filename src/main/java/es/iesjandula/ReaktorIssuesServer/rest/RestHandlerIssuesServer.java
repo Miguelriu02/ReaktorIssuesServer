@@ -116,7 +116,7 @@ public class RestHandlerIssuesServer
 	        
 	        String idUserAdmin = "";
 	        
-	        if(identificadorUserAdmin.toLowerCase().equals("admin") || identificadorUserAdmin.toLowerCase().equals("administrador"))
+	        if(identificadorUserAdmin.toLowerCase().equals("admin") || identificadorUserAdmin.toLowerCase().equals("administrador") || identificadorUserAdmin.toLowerCase().equals("tde"))
 	        {
 	        	idUserAdmin = Usuarios.ADMINISTRADOR.toString();
 	        }
@@ -178,7 +178,8 @@ public class RestHandlerIssuesServer
 	        @RequestParam(value = "motivo", required = true) String motivo)
 	{
 		String logMessage = "Tic con ID: " + id + " ha sido cancelado correctamente";
-	    try {
+	    try
+	    {
 	        // Obtener todas las incidencias TIC desde el repositorio
 	        List<Tic> listaTics = this.ticRepository.getTics();
 
@@ -194,7 +195,7 @@ public class RestHandlerIssuesServer
 	        
 	        String idUserAdmin = "";
 	        
-	        if(identificadorUserAdmin.toLowerCase().equals("admin") || identificadorUserAdmin.toLowerCase().equals("administrador"))
+	        if(identificadorUserAdmin.toLowerCase().equals("admin") || identificadorUserAdmin.toLowerCase().equals("administrador") || identificadorUserAdmin.toLowerCase().equals("tde"))
 	        {
 	        	idUserAdmin = Usuarios.ADMINISTRADOR.toString();
 	        }
@@ -271,7 +272,7 @@ public class RestHandlerIssuesServer
 				return ResponseEntity.status(Constantes.BAD_REQUEST).body(Constantes.DATABASE_EMPTY);
 			}
 			
-			if(usuario.toLowerCase().equals("admin") || usuario.toLowerCase().equals("administrador"))
+			if(usuario.toLowerCase().equals("admin") || usuario.toLowerCase().equals("administrador") || usuario.toLowerCase().equals("tde"))
 	        {
 				ticsFiltradas = Utils.filtro(tics, correo, aula, mensaje, estado, nombreProfesor, solucion);
 	        }
