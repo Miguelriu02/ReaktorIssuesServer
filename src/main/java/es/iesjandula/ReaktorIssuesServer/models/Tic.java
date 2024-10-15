@@ -76,5 +76,4 @@ public class Tic
 		ADMINISTRADOR,
 		USUARIO;
 	}
-
 }

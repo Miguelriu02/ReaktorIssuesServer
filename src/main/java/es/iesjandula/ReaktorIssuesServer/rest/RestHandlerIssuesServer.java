@@ -251,6 +251,7 @@ public class RestHandlerIssuesServer
 	//Metodo para filtrar las Incidencias Tic
 	@RequestMapping(method = RequestMethod.GET, value = "/filtrarTic")
 	public ResponseEntity<?> filtrarTic(
+			@RequestParam(value = "usuario", required = true) String usuario,
 	        @RequestParam(value = "correo", required = false) String correo)
 	{
 		try

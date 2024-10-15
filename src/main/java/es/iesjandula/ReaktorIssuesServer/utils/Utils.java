@@ -72,12 +72,12 @@ public class Utils
 		return ticFiltrada;
 	}
 	
-	public static List<Tic> filtrarFecha (List<Tic> listaTics, String fecha)
+	public static List<Tic> filtrarSolucion(List<Tic> listaTics, String solucion)
 	{
 		List<Tic> ticFiltrada = new ArrayList<Tic>();
 		for (Tic tic : listaTics)
 		{
-			if(tic.getFechaDeteccion().equals(fecha))
+			if(tic.getSolucion().equals(solucion))
 			{
 				ticFiltrada.add(tic);
 			}
