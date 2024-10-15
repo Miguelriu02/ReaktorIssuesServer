@@ -85,4 +85,17 @@ public class Utils
 		return ticFiltrada;
 	}
 	
+	public static List<Tic> filtrarNombreProfesor(List<Tic> listaTics, String nombreProfesor)
+	{
+		List<Tic> ticFiltrada = new ArrayList<Tic>();
+		for (Tic tic : listaTics)
+		{
+			if(tic.getNombreProfesor().equals(nombreProfesor))
+			{
+				ticFiltrada.add(tic);
+			}
+		}
+		return ticFiltrada;
+	}
+	
 }
