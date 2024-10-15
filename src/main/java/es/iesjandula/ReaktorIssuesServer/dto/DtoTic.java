@@ -31,7 +31,7 @@ public class DtoTic
 	
 	private String correo;
 
-	private String numeroAula;
+	private String aula;
 
 	private String nombreProfesor;
 
@@ -44,4 +44,6 @@ public class DtoTic
 	private String finalizadaPor;
 	
 	private String solucion;
+	
+	private Date fechaSolucion;
 }

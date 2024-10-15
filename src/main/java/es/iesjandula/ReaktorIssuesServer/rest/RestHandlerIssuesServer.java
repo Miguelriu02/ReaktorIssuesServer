@@ -1,5 +1,6 @@
 package es.iesjandula.ReaktorIssuesServer.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import es.iesjandula.ReaktorIssuesServer.models.Tic.Estado;
 import es.iesjandula.ReaktorIssuesServer.models.Tic.Usuarios;
 import es.iesjandula.ReaktorIssuesServer.repository.ITicRepository;
 import es.iesjandula.ReaktorIssuesServer.utils.Constantes;
+import es.iesjandula.ReaktorIssuesServer.utils.Utils;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -42,7 +44,7 @@ public class RestHandlerIssuesServer
 			ticRepository.saveAndFlush(tic);
 
 			// Registro de la información en los logs
-			log.info("Tic Info: Aula: " + tic.getNumeroAula() + ", Profesor: " + tic.getNombreProfesor() + ", Fecha: "
+			log.info("Tic Info: Aula: " + tic.getAula() + ", Profesor: " + tic.getNombreProfesor() + ", Fecha: "
 					+ tic.getFechaDeteccion() + ", Descripción: " + tic.getDescripcionIncidencia());
 
 			// Devuelve un mensaje de éxito
@@ -60,8 +62,7 @@ public class RestHandlerIssuesServer
 		}
 	}
 
-	// Método GET para obtener todas las incidencias TIC guardadas en la base de
-	// datos
+	// Método GET para obtener todas las incidencias TIC guardadas en la base de datos
 	@RequestMapping(method = RequestMethod.GET, value = "/getTics")
 	public ResponseEntity<?> obtenerIncidenciasTic()
 	{
@@ -127,11 +128,19 @@ public class RestHandlerIssuesServer
 	        // Recorrer la lista de TICs y buscar la incidencia con el ID proporcionado
 	        for (Tic tic : listaTics)
 	        {
-	            if (tic.getId().equals(id))
+	        	if(tic.getId().equals(id) && tic.getEstado().equals(Estado.PENDIENTE))
+	        	{
+	        		tic.setEstado(Estado.EN_CURSO);
+	        		ticRepository.saveAndFlush(tic);
+	        		ticEncontrada = true;
+	        		break;
+	        	}
+	        	else if (tic.getId().equals(id) && tic.getEstado().equals(Estado.EN_CURSO))
 	            {
 	                tic.setEstado(Estado.FINALIZADO);
 	                tic.setFinalizadaPor(idUserAdmin);
 	                tic.setSolucion(solucion);
+	                tic.setFechaSolucion(Utils.getAhora());
 	                ticRepository.saveAndFlush(tic);
 	                ticEncontrada = true;
 	                break;  // Salir del bucle una vez que se encuentra
@@ -239,16 +248,34 @@ public class RestHandlerIssuesServer
 	    }
 	}
 	
-	/*
-	// Método PUT para marcar una incidencia TIC como finalizada
-	@RequestMapping(method = RequestMethod.PUT, value = "/cancelTic")
+	//Metodo para filtrar las Incidencias Tic
+	@RequestMapping(method = RequestMethod.GET, value = "/filtrarTic")
 	public ResponseEntity<?> filtrarTic(
-	        @RequestParam(value = "id", required = true) Integer id, 
-	        @RequestParam(value = "usuario", required = true) String identificadorUserAdmin,
-	        @RequestParam(value = "motivo", required = true) String motivo)
+	        @RequestParam(value = "correo", required = false) String correo)
 	{
-		return null;
+		try
+		{
+			// Obtiene todas las incidencias TIC de la base de datos
+			List<Tic> tics = this.ticRepository.findAll();
+			List<Tic> ticsFiltradas = new ArrayList<Tic>();
+			if(tics.isEmpty() || tics == null)
+			{
+				log.error(Constantes.DATABASE_EMPTY);
+				return ResponseEntity.status(Constantes.BAD_REQUEST).body(Constantes.DATABASE_EMPTY);
+			}
+			ticsFiltradas = Utils.filtrarCorreo(tics, correo);
+			return ResponseEntity.ok().body(ticsFiltradas);
+		}
+		catch (Exception exception)
+		{
+			// Manejo de errores: en caso de que ocurra una excepción, se registra el error
+			String message = "No se ha podido obtener la lista de Tics de la Base de Datos";
+			log.error(message, exception);
+
+			// Se crea un objeto IssuesServerError para enviar detalles del error
+			IssuesServerError serverError = new IssuesServerError(1, message, exception);
+			return ResponseEntity.status(Constantes.SERVER_ERROR).body(serverError.getMapError());
+		}
 	}
-	*/
 	
 }

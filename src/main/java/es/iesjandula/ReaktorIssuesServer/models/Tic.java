@@ -30,7 +30,7 @@ public class Tic
 	private String correo; //Correo del usuario que genera el Tic
 
 	@Column
-	private String numeroAula; // Número del aula o nombre donde se detectó la incidencia
+	private String aula; // Número del aula o nombre donde se detectó la incidencia
 
 	@Column
 	private String nombreProfesor; // Nombre del profesor que reportó la incidencia
@@ -49,13 +49,16 @@ public class Tic
 	
 	@Column
 	private String solucion; //Solución dada para el problema
+	
+	@Column
+	private String fechaSolucion; //Fecha en el momento en el que se ha solucionado
 
 	// Constructor que permite crear una instancia de Tic sin el campo 'id'
 	public Tic(String correo, String numeroAula, String nombreProfesor, String descripcionIncidencia)
 	{
 		super();
 		this.correo = correo;
-		this.numeroAula = numeroAula;
+		this.aula = numeroAula;
 		this.nombreProfesor = nombreProfesor;
 		this.descripcionIncidencia = descripcionIncidencia;
 	}
