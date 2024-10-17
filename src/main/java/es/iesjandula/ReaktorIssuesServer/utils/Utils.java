@@ -34,11 +34,11 @@ public class Utils
 	        boolean coincide = true;
 
 	        // Verificar cada criterio de filtro
-	        if (!correo.isBlank() && !tic.getCorreo().equalsIgnoreCase(correo))
+	        if (!correo.isBlank() && !tic.getId().getCorreo().equalsIgnoreCase(correo))
 	        {
 	            coincide = false;
 	        }
-	        if (!aula.isBlank() && !tic.getAula().equalsIgnoreCase(aula))
+	        if (!aula.isBlank() && !tic.getId().getAula().equalsIgnoreCase(aula))
 	        {
 	            coincide = false;
 	        }

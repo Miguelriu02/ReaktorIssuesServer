@@ -29,12 +29,12 @@ public class RestHandlerIssuesServer {
     private ITicRepository iTicRepository;
 
     // Método para recibir nuevas incidencias TIC mediante una solicitud POST usando DtoTic y @RequestBody
-    @RequestMapping(method = RequestMethod.POST, value = "/")
+    @RequestMapping(method = RequestMethod.POST, value = "/", consumes = "application/json")
     public ResponseEntity<?> enviarIncidenciaTic(@RequestBody DtoTic dtoTic)
     {
         try
         {
-        	IssuesTicId ticId = new IssuesTicId(dtoTic.getCorreo(),dtoTic.getAula(),dtoTic.getDescripcionIncidencia());
+        	IssuesTicId ticId = new IssuesTicId(dtoTic.getId().getCorreo(), dtoTic.getId().getAula());
         	IssuesTic tic = new IssuesTic(ticId);
         	
             // Guardar la nueva incidencia en la base de datos
@@ -81,7 +81,7 @@ public class RestHandlerIssuesServer {
             }
             else
             {
-                ticsFiltradas = this.iTicRepository.filtrarCorreo(correo);
+                ticsFiltradas = this.iTicRepository.findByCorreo(correo);
             }
             return ResponseEntity.ok().body(ticsFiltradas);
         }
@@ -95,14 +95,14 @@ public class RestHandlerIssuesServer {
         }
     }
     // Método PUT para actualizar una incidencia TIC usando DtoTic y @RequestBody
-    @RequestMapping(method = RequestMethod.PUT, value = "/")
+    @RequestMapping(method = RequestMethod.PUT, value = "/", consumes = "application/json")
     public ResponseEntity<?> actualizarTic(@RequestBody DtoTic dtoTic, @RequestParam boolean cancelar)
     {
-    	String logMessage = "Tic con Correo: " + dtoTic.getCorreo() + " ha sido modificada correctamente";
+    	String logMessage = "Tic con Correo: " + dtoTic.getId().getCorreo() + " ha sido modificada correctamente";
         
         try
         {
-        	IssuesTic tic = this.iTicRepository.findByPrimary(dtoTic.getCorreo(), dtoTic.getAula(), dtoTic.getFechaDeteccion());
+        	IssuesTic tic = this.iTicRepository.findByPrimary(dtoTic.getId().getCorreo(), dtoTic.getId().getAula(), dtoTic.getId().getFechaDeteccion());
         	
         	if (tic.getEstado().equals(Estado.FINALIZADO))
         	{
@@ -125,10 +125,10 @@ public class RestHandlerIssuesServer {
             else if(cancelar && tic.getEstado().equals(Estado.PENDIENTE) || tic.getEstado().equals(Estado.EN_CURSO))
             {
             	tic.setEstado(Estado.CANCELADA);
-            	tic.setFinalizadaPor(dtoTic.getCorreo());
+            	tic.setFinalizadaPor(dtoTic.getId().getCorreo());
             	tic.setSolucion(dtoTic.getSolucion());
             	tic.setFechaSolucion(Utils.getAhora());
-                logMessage = "Tic con Correo: " + dtoTic.getCorreo() + " ha sido cancelado correctamente";
+                logMessage = "Tic con Correo: " + dtoTic.getId().getCorreo() + " ha sido cancelado correctamente";
             }
 
             this.iTicRepository.save(tic);

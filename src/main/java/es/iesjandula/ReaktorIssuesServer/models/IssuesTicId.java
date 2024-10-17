@@ -20,5 +20,13 @@ public class IssuesTicId implements Serializable
 	private static final long serialVersionUID = 8692520355413945147L;
 	private String correo;
     private String aula;
-    private String fechaDeteccion = Utils.getAhora();
+    private String fechaDeteccion;
+	
+    public IssuesTicId(String correo, String aula)
+    {
+		super();
+		this.correo = correo;
+		this.aula = aula;
+		this.fechaDeteccion = Utils.getAhora();
+	}
 }

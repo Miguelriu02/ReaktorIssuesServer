@@ -1,14 +1,11 @@
 package es.iesjandula.ReaktorIssuesServer.models;
 
 import es.iesjandula.ReaktorIssuesServer.utils.Enums.Estado;
-import es.iesjandula.ReaktorIssuesServer.utils.Utils;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
-import jakarta.persistence.IdClass;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
