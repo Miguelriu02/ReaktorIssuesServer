@@ -3,6 +3,7 @@ package es.iesjandula.ReaktorIssuesServer.models;
 import java.io.Serializable;
 
 import es.iesjandula.ReaktorIssuesServer.utils.Utils;
+import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Embeddable
 public class IssuesTicId implements Serializable
 {
 	/**

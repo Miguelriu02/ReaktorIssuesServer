@@ -15,7 +15,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 //Anotación que indica que esta clase es una entidad JPA
-@IdClass(IssuesTic.class)
 @Entity
 //Esta anotacion especifica el nombre de la tabla de la base de datos
 @Table(name = "tic")
