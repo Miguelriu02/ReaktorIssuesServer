@@ -3,14 +3,19 @@ package es.iesjandula.ReaktorIssuesServer.models;
 import es.iesjandula.ReaktorIssuesServer.utils.Enums.Estado;
 import es.iesjandula.ReaktorIssuesServer.utils.Utils;
 import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 //Anotación que indica que esta clase es una entidad JPA
+@IdClass(IssuesTic.class)
 @Entity
 //Esta anotacion especifica el nombre de la tabla de la base de datos
 @Table(name = "tic")
@@ -21,21 +26,13 @@ import lombok.NoArgsConstructor;
 public class IssuesTic
 {
 	// Anotación que indica que este campo es la clave primaria y se auto-genera
-	@Id
-	@Column // Indica que este campo se mapeará a una columna en la tabla
-	private String correo; //Correo del usuario que genera el Tic
-	
-	@Id
-	@Column
-	private String aula; // Número del aula o nombre donde se detectó la incidencia
-	
-	@Id
-	@Column
-	private String fechaDeteccion; // Fecha en que se detectó la incidencia
+	@EmbeddedId
+	private IssuesTicId id;
 
 	@Column
 	private String descripcionIncidencia; // Descripción de la Incidencia
-
+	
+	@Enumerated(EnumType.STRING)
 	@Column
 	private Estado estado; // Estado de la incidencia, por defecto no finalizada
 	
@@ -49,13 +46,10 @@ public class IssuesTic
 	private String fechaSolucion; //Fecha en el momento en el que se ha solucionado
 
 	// Constructor que permite crear una instancia de Tic sin el campo 'id'
-	public IssuesTic(String correo, String numeroAula, String descripcionIncidencia)
+	public IssuesTic(IssuesTicId id)
 	{
 		super();
-		this.correo = correo;
-		this.aula = numeroAula;
-		this.descripcionIncidencia = descripcionIncidencia;
-		this.fechaDeteccion = Utils.getAhora();
+		this.id = id;
 		this.estado = Estado.PENDIENTE;
 	}
 }

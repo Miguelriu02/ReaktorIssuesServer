@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.iesjandula.ReaktorIssuesServer.dto.DtoTic;
+import es.iesjandula.ReaktorIssuesServer.models.IssuesTic;
+import es.iesjandula.ReaktorIssuesServer.models.IssuesTicId;
 import es.iesjandula.ReaktorIssuesServer.repository.ITicRepository;
 import es.iesjandula.ReaktorIssuesServer.utils.Constantes;
 import es.iesjandula.ReaktorIssuesServer.utils.Enums.Estado;
@@ -32,8 +34,11 @@ public class RestHandlerIssuesServer {
     {
         try
         {
+        	IssuesTicId ticId = new IssuesTicId(dtoTic.getCorreo(),dtoTic.getAula(),dtoTic.getDescripcionIncidencia());
+        	IssuesTic tic = new IssuesTic(ticId);
+        	
             // Guardar la nueva incidencia en la base de datos
-            this.iTicRepository.saveAndFlush(dtoTic);
+            this.iTicRepository.saveAndFlush(tic);
 
             // Registro de la información en los logs
             log.info("Tic Info: " + dtoTic);
@@ -48,7 +53,6 @@ public class RestHandlerIssuesServer {
             return ResponseEntity.status(500).body(serverError.getMapError());
         }
     }
-    
     // Método para filtrar las Incidencias Tic
     @RequestMapping(method = RequestMethod.GET, value = "/filtrarTic")
     public ResponseEntity<?> filtrarTic(
@@ -63,7 +67,7 @@ public class RestHandlerIssuesServer {
         try
         {
             // Obtiene todas las incidencias TIC de la base de datos
-            List<DtoTic> tics = this.iTicRepository.findAll();
+            List<DtoTic> tics = this.iTicRepository.getTics();
             List<DtoTic> ticsFiltradas;
 
             if (tics.isEmpty() || tics == null)
@@ -90,7 +94,6 @@ public class RestHandlerIssuesServer {
             return ResponseEntity.status(500).body(serverError.getMapError());
         }
     }
-
     // Método PUT para actualizar una incidencia TIC usando DtoTic y @RequestBody
     @RequestMapping(method = RequestMethod.PUT, value = "/")
     public ResponseEntity<?> actualizarTic(@RequestBody DtoTic dtoTic, @RequestParam boolean cancelar)
@@ -99,35 +102,36 @@ public class RestHandlerIssuesServer {
         
         try
         {
-        	DtoTic dtoTicPut = this.iTicRepository.findById(dtoTic.getCorreo(), dtoTic.getAula(), dtoTic.getFechaDeteccion());
+        	IssuesTic tic = this.iTicRepository.findByPrimary(dtoTic.getCorreo(), dtoTic.getAula(), dtoTic.getFechaDeteccion());
         	
-        	if (dtoTicPut.getEstado().equals(Estado.FINALIZADO))
+        	if (tic.getEstado().equals(Estado.FINALIZADO))
         	{
                 log.error(Constantes.UPDATE_FAILURE_NOT_EXISTS_FINALIZATED_CANCELL);
                 return ResponseEntity.status(404).body(Constantes.UPDATE_FAILURE_NOT_EXISTS_FINALIZATED_CANCELL);
             }
 
             // Actualizar el estado y otros campos según corresponda
-            if (dtoTicPut.getEstado().equals(Estado.PENDIENTE))
+            if (tic.getEstado().equals(Estado.PENDIENTE))
             {
-                dtoTicPut.setEstado(Estado.EN_CURSO);
+            	tic.setEstado(Estado.EN_CURSO);
             }
-            else if (dtoTicPut.getEstado().equals(Estado.EN_CURSO))
+            else if (tic.getEstado().equals(Estado.EN_CURSO))
             {
-                dtoTicPut.setEstado(Estado.FINALIZADO);
-                dtoTicPut.setFinalizadaPor(dtoTic.getFinalizadaPor());
-                dtoTicPut.setSolucion(dtoTic.getSolucion());
-                dtoTicPut.setFechaSolucion(Utils.getAhora());
+            	tic.setEstado(Estado.FINALIZADO);
+            	tic.setFinalizadaPor(dtoTic.getFinalizadaPor());
+            	tic.setSolucion(dtoTic.getSolucion());
+            	tic.setFechaSolucion(Utils.getAhora());
             }
-            else if(cancelar && dtoTicPut.getEstado().equals(Estado.PENDIENTE) || dtoTicPut.getEstado().equals(Estado.EN_CURSO))
+            else if(cancelar && tic.getEstado().equals(Estado.PENDIENTE) || tic.getEstado().equals(Estado.EN_CURSO))
             {
-            	dtoTicPut.setEstado(Estado.CANCELADA);
-                dtoTicPut.setFinalizadaPor(dtoTic.getCorreo());
-                dtoTicPut.setSolucion(dtoTic.getSolucion());
-                dtoTicPut.setFechaSolucion(Utils.getAhora());
+            	tic.setEstado(Estado.CANCELADA);
+            	tic.setFinalizadaPor(dtoTic.getCorreo());
+            	tic.setSolucion(dtoTic.getSolucion());
+            	tic.setFechaSolucion(Utils.getAhora());
+                logMessage = "Tic con Correo: " + dtoTic.getCorreo() + " ha sido cancelado correctamente";
             }
 
-            this.iTicRepository.saveAndFlush(dtoTicPut);
+            this.iTicRepository.save(tic);
 
             log.info(logMessage);
             return ResponseEntity.ok().body(logMessage);
