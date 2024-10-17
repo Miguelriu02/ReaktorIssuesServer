@@ -1,11 +1,13 @@
 package es.iesjandula.ReaktorIssuesServer.utils;
 
 import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import es.iesjandula.ReaktorIssuesServer.models.Tic;
+import es.iesjandula.ReaktorIssuesServer.dto.DtoTic;
+
 
 /**
  * Clase que se usará para añadir funciones/utilidades que se usarán en el codigo para poder modularizarlo
@@ -20,10 +22,10 @@ public class Utils
     	return formatter.format(today);
 	}
 	
-	public static List<Tic> filtrarCorreo (List<Tic> listaTics, String correo)
+	public static List<DtoTic> filtrarCorreo (List<DtoTic> listaTics, String correo)
 	{
-		List<Tic> ticFiltrada = new ArrayList<Tic>();
-		for (Tic tic : listaTics)
+		List<DtoTic> ticFiltrada = new ArrayList<DtoTic>();
+		for (DtoTic tic : listaTics)
 		{
 			if(tic.getCorreo().equals(correo))
 			{
@@ -33,14 +35,14 @@ public class Utils
 		return ticFiltrada;
 	}
 	
-	public static List<Tic> filtro(List<Tic> listaTics, String correo, String aula, String mensaje, String estado, String nombreProfesor, String solucion)
+	public static List<DtoTic> filtro(List<DtoTic> listaTics, String correo, String aula, String mensaje, String estado, String nombreProfesor, String solucion)
 	{
-		List<Tic> filtrado = new ArrayList<>();
+		List<DtoTic> filtrado = new ArrayList<>();
 	    estado = estado.toUpperCase();
-	    List<Tic> filtradoDescendente = new ArrayList<Tic>();
+	    List<DtoTic> filtradoDescendente = new ArrayList<DtoTic>();
 	    
 	    // Iterar sobre cada elemento en la lista original
-	    for (Tic tic : listaTics)
+	    for (DtoTic tic : listaTics)
 	    {
 	        boolean coincide = true;
 
