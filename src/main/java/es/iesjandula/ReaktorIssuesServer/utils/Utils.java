@@ -22,19 +22,6 @@ public class Utils
     	return formatter.format(today);
 	}
 	
-	public static List<DtoTic> filtrarCorreo (List<DtoTic> listaTics, String correo)
-	{
-		List<DtoTic> ticFiltrada = new ArrayList<DtoTic>();
-		for (DtoTic tic : listaTics)
-		{
-			if(tic.getCorreo().equals(correo))
-			{
-				ticFiltrada.add(tic);
-			}
-		}
-		return ticFiltrada;
-	}
-	
 	public static List<DtoTic> filtro(List<DtoTic> listaTics, String correo, String aula, String mensaje, String estado, String nombreProfesor, String solucion)
 	{
 		List<DtoTic> filtrado = new ArrayList<>();
@@ -60,10 +47,6 @@ public class Utils
 	            coincide = false;
 	        }
 	        if (!estado.isBlank() && !tic.getEstado().toString().equals(estado))
-	        {
-	            coincide = false;
-	        }
-	        if (!nombreProfesor.isBlank() && !tic.getNombreProfesor().equalsIgnoreCase(nombreProfesor))
 	        {
 	            coincide = false;
 	        }

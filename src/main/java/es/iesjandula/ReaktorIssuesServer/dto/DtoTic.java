@@ -1,8 +1,6 @@
 package es.iesjandula.ReaktorIssuesServer.dto;
 
-import java.util.Date;
-
-import es.iesjandula.ReaktorIssuesServer.models.Tic.Estado;
+import es.iesjandula.ReaktorIssuesServer.utils.Enums.Estado;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,16 +24,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DtoTic
-{
-	private Integer id;
-	
+{	
 	private String correo;
 
 	private String aula;
 
-	private String nombreProfesor;
-
-	private Date fechaDeteccion;
+	private String fechaDeteccion;
 
 	private String descripcionIncidencia;
 
@@ -45,5 +39,5 @@ public class DtoTic
 	
 	private String solucion;
 	
-	private Date fechaSolucion;
+	private String fechaSolucion;
 }

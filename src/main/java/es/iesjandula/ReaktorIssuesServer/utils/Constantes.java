@@ -16,13 +16,4 @@ public final class Constantes
     public static final String UPDATE_FAILURE_NOT_EXISTS_FINALIZATED_CANCELL = "No puedes modificar un Tic que no existe, esta Finalizado o Cancelado";
     
     public static final String UPDATE_TIC_FAILURE = "No se ha podido modificar la lista de Tics";
-    
-    //Constante que aparecerá cuando ocurra un error en el servidor
-    public static final Integer SERVER_ERROR = 500;
-    
-    //Constante que aparecerá cuando no se puede encontrar el recurso en el servidor
-    public static final Integer NOT_FOUND = 404;
-    
-    //Constante que aparecerá cuando la solicitud falla debido a un error del cliente
-    public static final Integer BAD_REQUEST = 400;
 }
