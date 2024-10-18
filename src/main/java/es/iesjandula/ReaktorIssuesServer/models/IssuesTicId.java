@@ -31,6 +31,24 @@ public class IssuesTicId implements Serializable
 		this.fechaDeteccion = getAhora();
 	}
     
+    public void setCorreo(String correo)
+    {
+        if (correo == null || correo.trim().isEmpty())
+        {
+            throw new IllegalArgumentException("El correo no puede ser vacío");
+        }
+        this.correo = correo;
+    }
+
+    public void setAula(String aula)
+    {
+        if (aula == null || aula.trim().isEmpty())
+        {
+            throw new IllegalArgumentException("El aula no puede ser vacía");
+        }
+        this.aula = aula;
+    }
+    
   //Funcion que devuelve un String con el Dia, Mes, Año, Hora y Minuto en el momento que se ejecuta.
   	public static String getAhora()
   	{

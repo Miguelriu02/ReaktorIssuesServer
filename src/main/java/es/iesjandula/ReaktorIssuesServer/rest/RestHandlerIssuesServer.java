@@ -100,7 +100,7 @@ public class RestHandlerIssuesServer {
     }
     // Método PUT para actualizar una incidencia TIC usando DtoTic y @RequestBody
     @RequestMapping(method = RequestMethod.PUT, value = "/", consumes = "application/json")
-    public ResponseEntity<?> actualizarTic(@RequestBody DtoTic dtoTic, @RequestParam(value = "cancelar", required = false) boolean cancelar)
+    public ResponseEntity<?> actualizarTic(@RequestBody DtoTic dtoTic, @RequestParam(value = "admin", required = false) boolean admin ,@RequestParam(value = "cancelar", required = false) boolean cancelar)
     {
         String logMessage = "TIC con Correo: " + dtoTic.getId().getCorreo() + " ha sido modificada correctamente";
         
@@ -124,7 +124,7 @@ public class RestHandlerIssuesServer {
             }
 
             // Lógica para actualizar el estado
-            if (cancelar)
+            if (cancelar && tic.getId().getCorreo().equals(dtoTic.getFinalizadaPor()))
             {
                 // Solo se puede cancelar si el estado es PENDIENTE o EN_CURSO
                 if (tic.getEstado().equals(Estado.PENDIENTE) || tic.getEstado().equals(Estado.EN_CURSO))
@@ -136,7 +136,7 @@ public class RestHandlerIssuesServer {
                     logMessage = "TIC con Correo: " + dtoTic.getId().getCorreo() + " ha sido cancelada correctamente";
                 }
             }
-            else
+            else if(admin)
             {
                 // Si cancelar es false, actualizar el estado si es PENDIENTE o EN_CURSO
                 if (tic.getEstado().equals(Estado.PENDIENTE))
@@ -151,6 +151,10 @@ public class RestHandlerIssuesServer {
                     tic.setFechaSolucion(IssuesTicId.getAhora());
                     logMessage = "TIC con Correo: " + dtoTic.getId().getCorreo() + " ha sido finalizado correctamente";
                 }
+            }
+            else
+            {
+            	logMessage = "No puedes modificar el estado de la Incidencia sin ser el administrador o la misma persona que la creó.";
             }
 
             // Guardar la TIC actualizada en la base de datos

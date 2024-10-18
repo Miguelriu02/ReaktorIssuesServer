@@ -1,5 +1,0 @@
-Clase DTO: Validar los Setters de todos los atributos.
-
-POST: Configurar en el aplication.yaml el uso de Loggers.
-
-PUT: Solo el Administrador puede actualizar la incidencia.

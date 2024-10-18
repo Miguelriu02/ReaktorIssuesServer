@@ -11,47 +11,17 @@
 			"request": {
 				"method": "POST",
 				"header": [],
-				"url": {
-					"raw": "http://localhost:8082/incidencias/tic/createTic?correo=mriogut600@google&numeroAula=2.6&nombreProfesor=Julio&descripcion=No funciona algo",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8082",
-					"path": [
-						"incidencias",
-						"tic",
-						"createTic"
-					],
-					"query": [
-						{
-							"key": "correo",
-							"value": "mriogut600@google"
-						},
-						{
-							"key": "numeroAula",
-							"value": "2.6"
-						},
-						{
-							"key": "nombreProfesor",
-							"value": "Julio"
-						},
-						{
-							"key": "descripcion",
-							"value": "No funciona algo"
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":\r\n    {\r\n        \"correo\": \"ikja<shsdljkahsd\",\r\n        \"aula\": \"1\"\r\n    },\r\n    \"descripcionIncidencia\": \"a\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
 						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Ver Tics",
-			"request": {
-				"method": "GET",
-				"header": [],
+					}
+				},
 				"url": {
-					"raw": "http://localhost:8082/incidencias/tic/getTics",
+					"raw": "http://localhost:8082/incidencias/",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -59,78 +29,7 @@
 					"port": "8082",
 					"path": [
 						"incidencias",
-						"tic",
-						"getTics"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Modificar Tic",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8082/incidencias/tic/updateTic?id=1&usuario=Pedro&solucion=Faltaba conectar el cable",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8082",
-					"path": [
-						"incidencias",
-						"tic",
-						"updateTic"
-					],
-					"query": [
-						{
-							"key": "id",
-							"value": "1"
-						},
-						{
-							"key": "usuario",
-							"value": "Pedro"
-						},
-						{
-							"key": "solucion",
-							"value": "Faltaba conectar el cable"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Cancelar Tic",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8082/incidencias/tic/cancelTic?id=3&usuario=Admin&motivo=Hay que llamar al tecnico",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8082",
-					"path": [
-						"incidencias",
-						"tic",
-						"cancelTic"
-					],
-					"query": [
-						{
-							"key": "id",
-							"value": "3"
-						},
-						{
-							"key": "usuario",
-							"value": "Admin"
-						},
-						{
-							"key": "motivo",
-							"value": "Hay que llamar al tecnico"
-						}
+						""
 					]
 				}
 			},
@@ -142,7 +41,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8082/incidencias/tic/filtrarTic?usuario=Admin",
+					"raw": "http://localhost:8082/incidencias/filtrarTic?usuario=Admin",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -150,7 +49,6 @@
 					"port": "8082",
 					"path": [
 						"incidencias",
-						"tic",
 						"filtrarTic"
 					],
 					"query": [
@@ -160,17 +58,22 @@
 						},
 						{
 							"key": "correo",
-							"value": "mriogut600@g.educaand.es",
+							"value": "mriogut600@a.com",
 							"disabled": true
 						},
 						{
 							"key": "aula",
-							"value": "2.6",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "fechaDeteccion",
+							"value": null,
 							"disabled": true
 						},
 						{
 							"key": "mensajeDescriptivo",
-							"value": "No funciona algo",
+							"value": "fallo",
 							"disabled": true
 						},
 						{
@@ -179,13 +82,53 @@
 							"disabled": true
 						},
 						{
-							"key": "nombreProfesor",
-							"value": "julio",
+							"key": "solucion",
+							"value": "Conectar",
 							"disabled": true
 						},
 						{
-							"key": "solucion",
-							"value": "Hay",
+							"key": "fechaSolucion",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modificar_Borrar Tic",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":\r\n    {\r\n        \"aula\": \"1\",\r\n        \"correo\": \"ikja<shsdljkahsd\",\r\n        \"fechaDeteccion\": \"18-10-2024 12:51\"\r\n    },\r\n    \"finalizadaPor\": \"ikja<shsdljkahsd\",\r\n    \"solucion\": \"Conectar el cable\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8082/incidencias/?cancelar=true",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"incidencias",
+						""
+					],
+					"query": [
+						{
+							"key": "cancelar",
+							"value": "true"
+						},
+						{
+							"key": "admin",
+							"value": "true",
 							"disabled": true
 						}
 					]

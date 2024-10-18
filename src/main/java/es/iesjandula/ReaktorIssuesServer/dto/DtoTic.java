@@ -44,4 +44,31 @@ public class DtoTic
 		this.id = id;
 		this.descripcionIncidencia = descripcionIncidencia;
 	}
+	
+	public void setDescripcionIncidencia(String descripcionIncidencia)
+    {
+        if (descripcionIncidencia == null || descripcionIncidencia.trim().isEmpty())
+        {
+            throw new IllegalArgumentException("La descripcion del tic no debería de ser vacía");
+        }
+        this.descripcionIncidencia = descripcionIncidencia;
+    }
+	
+	public void setFinalizadaPor(String finalizadaPor)
+    {
+        if (finalizadaPor == null || finalizadaPor.trim().isEmpty())
+        {
+            throw new IllegalArgumentException("La descripcion del tic no debería de ser vacía");
+        }
+        this.finalizadaPor = finalizadaPor;
+    }
+	
+	public void setSolucion(String solucion)
+    {
+        if (solucion == null || solucion.trim().isEmpty())
+        {
+            throw new IllegalArgumentException("La solucion no de estar vacía");
+        }
+        this.solucion = solucion;
+    }
 }
