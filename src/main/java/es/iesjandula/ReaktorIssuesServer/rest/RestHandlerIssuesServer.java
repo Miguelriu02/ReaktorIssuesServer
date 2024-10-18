@@ -100,7 +100,10 @@ public class RestHandlerIssuesServer {
     }
     // Método PUT para actualizar una incidencia TIC usando DtoTic y @RequestBody
     @RequestMapping(method = RequestMethod.PUT, value = "/", consumes = "application/json")
-    public ResponseEntity<?> actualizarTic(@RequestBody DtoTic dtoTic, @RequestParam(value = "admin", required = false) boolean admin ,@RequestParam(value = "cancelar", required = false) boolean cancelar)
+    public ResponseEntity<?> actualizarTic(
+    		@RequestBody DtoTic dtoTic, 
+    		@RequestParam(value = "admin", required = false) boolean admin,
+    		@RequestParam(value = "cancelar", required = false) boolean cancelar)
     {
         String logMessage = "TIC con Correo: " + dtoTic.getId().getCorreo() + " ha sido modificada correctamente";
         
@@ -123,7 +126,7 @@ public class RestHandlerIssuesServer {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Constantes.UPDATE_FAILURE_NOT_EXISTS_FINALIZATED_CANCELL);
             }
 
-            // Lógica para actualizar el estado
+            // Lógica para actualizar o cancelar el estado
             if (cancelar && tic.getId().getCorreo().equals(dtoTic.getFinalizadaPor()))
             {
                 // Solo se puede cancelar si el estado es PENDIENTE o EN_CURSO
