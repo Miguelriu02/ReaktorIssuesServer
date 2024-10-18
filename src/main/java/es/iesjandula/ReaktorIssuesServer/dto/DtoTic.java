@@ -58,7 +58,7 @@ public class DtoTic
     {
         if (finalizadaPor == null || finalizadaPor.trim().isEmpty())
         {
-            throw new IllegalArgumentException("Quien finaliza el tic no debería de estar vacío");
+            throw new IllegalArgumentException("El finalizador del tic no debería de estar vacío");
         }
         this.finalizadaPor = finalizadaPor;
     }
