@@ -16,4 +16,6 @@ public final class Constantes
     public static final String UPDATE_FAILURE_NOT_EXISTS_FINALIZATED_CANCELL = "No puedes modificar un Tic que no existe, esta Finalizado o Cancelado";
     
     public static final String UPDATE_TIC_FAILURE = "No se ha podido modificar la lista de Tics";
+    
+    public static final String UPDATE_FAILURE_NOT_EXISTS = "La incidencia TIC no existe en la base de datos.";
 }

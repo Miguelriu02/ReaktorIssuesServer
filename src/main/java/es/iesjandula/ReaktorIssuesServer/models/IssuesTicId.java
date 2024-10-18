@@ -1,8 +1,9 @@
 package es.iesjandula.ReaktorIssuesServer.models;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-import es.iesjandula.ReaktorIssuesServer.utils.Utils;
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,6 +28,14 @@ public class IssuesTicId implements Serializable
 		super();
 		this.correo = correo;
 		this.aula = aula;
-		this.fechaDeteccion = Utils.getAhora();
+		this.fechaDeteccion = getAhora();
 	}
+    
+  //Funcion que devuelve un String con el Dia, Mes, Año, Hora y Minuto en el momento que se ejecuta.
+  	public static String getAhora()
+  	{
+      	Date today = new Date();
+      	SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+      	return formatter.format(today);
+  	}
 }

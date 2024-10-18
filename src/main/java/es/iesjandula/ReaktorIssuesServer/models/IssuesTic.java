@@ -42,10 +42,11 @@ public class IssuesTic
 	private String fechaSolucion; //Fecha en el momento en el que se ha solucionado
 
 	// Constructor que permite crear una instancia de Tic sin el campo 'id'
-	public IssuesTic(IssuesTicId id)
+	public IssuesTic(IssuesTicId id, String descripcionIncidencia)
 	{
 		super();
 		this.id = id;
+		this.descripcionIncidencia = descripcionIncidencia;
 		this.estado = Estado.PENDIENTE;
 	}
 }

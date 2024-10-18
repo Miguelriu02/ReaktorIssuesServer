@@ -1,11 +1,5 @@
 Clase DTO: Validar los Setters de todos los atributos.
 
-Utils: Revisar las funciones y llevarlas a donde sea necesario
-
 POST: Configurar en el aplication.yaml el uso de Loggers.
 
-PUT: saveAndFlush, solo el Administrador puede actualizar la incidencia. No quiere Break en los bucles, se usa boolean con un While.
-
-DELETE: Cancelar es un DELETE. Deberia de estar actualizar incidencia y cancelar incidencia en el mismo endPoint
-
-Hacer consultas en vez de filtros en el código. Revisar código de Paco
+PUT: Solo el Administrador puede actualizar la incidencia.
