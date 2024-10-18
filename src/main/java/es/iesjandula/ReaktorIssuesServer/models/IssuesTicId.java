@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import es.iesjandula.ReaktorIssuesServer.utils.Constantes;
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -35,7 +36,11 @@ public class IssuesTicId implements Serializable
     {
         if (correo == null || correo.trim().isEmpty())
         {
-            throw new IllegalArgumentException("El correo no puede ser vacío");
+            throw new IllegalArgumentException("El correo no puede estar vacío");
+        }
+        if(!correo.contains(Constantes.CORREO_ANDALUCIA) && !correo.contains(Constantes.CORREO_JANDULA))
+        {
+        	throw new IllegalArgumentException("El correo debe pertenecer al sistema educativo de Andalucía o al IES Jándula.");
         }
         this.correo = correo;
     }
@@ -56,4 +61,5 @@ public class IssuesTicId implements Serializable
       	SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm");
       	return formatter.format(today);
   	}
+  	
 }

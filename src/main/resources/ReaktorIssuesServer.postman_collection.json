@@ -13,7 +13,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"id\":\r\n    {\r\n        \"correo\": \"ikja<shsdljkahsd\",\r\n        \"aula\": \"1\"\r\n    },\r\n    \"descripcionIncidencia\": \"a\"\r\n}\r\n",
+					"raw": "{\r\n    \"id\":\r\n    {\r\n        \"correo\": \"mriogut600@g.educaand.es\",\r\n        \"aula\": \"2\"\r\n    },\r\n    \"descripcionIncidencia\": \"a\"\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -41,7 +41,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8082/incidencias/filtrarTic?usuario=Admin",
+					"raw": "http://localhost:8082/incidencias/filtrarTic?usuario=tde",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -54,11 +54,11 @@
 					"query": [
 						{
 							"key": "usuario",
-							"value": "Admin"
+							"value": "tde"
 						},
 						{
 							"key": "correo",
-							"value": "mriogut600@a.com",
+							"value": "mriogut600@iesjandula.es",
 							"disabled": true
 						},
 						{
@@ -68,7 +68,7 @@
 						},
 						{
 							"key": "fechaDeteccion",
-							"value": null,
+							"value": "",
 							"disabled": true
 						},
 						{
@@ -103,7 +103,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"id\":\r\n    {\r\n        \"aula\": \"1\",\r\n        \"correo\": \"ikja<shsdljkahsd\",\r\n        \"fechaDeteccion\": \"18-10-2024 12:51\"\r\n    },\r\n    \"finalizadaPor\": \"ikja<shsdljkahsd\",\r\n    \"solucion\": \"Conectar el cable\"\r\n}\r\n",
+					"raw": "{\r\n    \"id\":\r\n    {\r\n        \"aula\": \"2\",\r\n        \"correo\": \"mriogut600@g.educaand.es\",\r\n        \"fechaDeteccion\": \"19-10-2024 01:19\"\r\n    },\r\n    \"finalizadaPor\": \"fbenchi274@g.educaand.es\",\r\n    \"solucion\": \"Conectar el cable\"\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -125,11 +125,6 @@
 						{
 							"key": "cancelar",
 							"value": "true"
-						},
-						{
-							"key": "admin",
-							"value": "true",
-							"disabled": true
 						}
 					]
 				}

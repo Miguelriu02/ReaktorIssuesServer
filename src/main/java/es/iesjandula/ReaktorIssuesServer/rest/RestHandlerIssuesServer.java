@@ -78,10 +78,10 @@ public class RestHandlerIssuesServer {
                 log.error(Constantes.DATABASE_EMPTY);
                 return ResponseEntity.status(400).body(Constantes.DATABASE_EMPTY);
             }
-            if (usuario.toLowerCase().equals("admin") || usuario.toLowerCase().equals("administrador") || usuario.toLowerCase().equals("tde"))
+            if (usuario.toLowerCase().equals("admin") || usuario.toLowerCase().equals("administrador") || usuario.toLowerCase().equals("tde") || usuario.toLowerCase().equals(Constantes.TDE))
             {
             	Estado estado = Enums.stringToEnum(estadoStr);
-                ticsFiltradas = this.iTicRepository.filtrar(correo, aula, fechaDeteccion,mensaje, estado, finalizadaPor, solucion, fechaSolucion);
+                ticsFiltradas = this.iTicRepository.filtrar(correo, aula, fechaDeteccion, mensaje, estado, finalizadaPor, solucion, fechaSolucion);
             }
             else
             {
@@ -101,8 +101,7 @@ public class RestHandlerIssuesServer {
     // Método PUT para actualizar una incidencia TIC usando DtoTic y @RequestBody
     @RequestMapping(method = RequestMethod.PUT, value = "/", consumes = "application/json")
     public ResponseEntity<?> actualizarTic(
-    		@RequestBody DtoTic dtoTic, 
-    		@RequestParam(value = "admin", required = false) boolean admin,
+    		@RequestBody DtoTic dtoTic,
     		@RequestParam(value = "cancelar", required = false) boolean cancelar)
     {
         String logMessage = "TIC con Correo: " + dtoTic.getId().getCorreo() + " ha sido modificada correctamente";
@@ -125,21 +124,29 @@ public class RestHandlerIssuesServer {
                 log.error(Constantes.UPDATE_FAILURE_NOT_EXISTS_FINALIZATED_CANCELL);
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Constantes.UPDATE_FAILURE_NOT_EXISTS_FINALIZATED_CANCELL);
             }
-
-            // Lógica para actualizar o cancelar el estado
-            if (cancelar && tic.getId().getCorreo().equals(dtoTic.getFinalizadaPor()))
+            
+            if(cancelar)
             {
-                // Solo se puede cancelar si el estado es PENDIENTE o EN_CURSO
-                if (tic.getEstado().equals(Estado.PENDIENTE) || tic.getEstado().equals(Estado.EN_CURSO))
+            	if(tic.getId().getCorreo().equals(dtoTic.getFinalizadaPor()) || dtoTic.getFinalizadaPor().equals(Constantes.TDE))
                 {
-                    tic.setEstado(Estado.CANCELADO);
-                    tic.setFinalizadaPor(dtoTic.getFinalizadaPor());
-                    tic.setSolucion(dtoTic.getSolucion());
-                    tic.setFechaSolucion(IssuesTicId.getAhora());
-                    logMessage = "TIC con Correo: " + dtoTic.getId().getCorreo() + " ha sido cancelada correctamente";
+                    // Solo se puede cancelar si el estado es PENDIENTE o EN_CURSO
+                    if (tic.getEstado().equals(Estado.PENDIENTE) || tic.getEstado().equals(Estado.EN_CURSO))
+                    {
+                        tic.setEstado(Estado.CANCELADO);
+                        tic.setFinalizadaPor(dtoTic.getFinalizadaPor());
+                        tic.setSolucion(dtoTic.getSolucion());
+                        tic.setFechaSolucion(IssuesTicId.getAhora());
+                        logMessage = "TIC con Correo: " + dtoTic.getId().getCorreo() + " ha sido cancelada correctamente";
+                    }
                 }
+	            else
+	            {
+	            	logMessage = "No puedes cancelar el estado de la Incidencia sin ser el administrador o la misma persona que la creó.";
+	            	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(logMessage);
+	            }
+            	
             }
-            else if(admin)
+            else if(dtoTic.getFinalizadaPor().equals(Constantes.TDE))
             {
                 // Si cancelar es false, actualizar el estado si es PENDIENTE o EN_CURSO
                 if (tic.getEstado().equals(Estado.PENDIENTE))
@@ -157,7 +164,8 @@ public class RestHandlerIssuesServer {
             }
             else
             {
-            	logMessage = "No puedes modificar el estado de la Incidencia sin ser el administrador o la misma persona que la creó.";
+            	logMessage = "No modificar el estado de la Incidencia sin ser el administrador";
+            	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(logMessage);
             }
 
             // Guardar la TIC actualizada en la base de datos

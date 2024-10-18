@@ -49,7 +49,7 @@ public class DtoTic
     {
         if (descripcionIncidencia == null || descripcionIncidencia.trim().isEmpty())
         {
-            throw new IllegalArgumentException("La descripcion del tic no debería de ser vacía");
+            throw new IllegalArgumentException("La descripcion del tic no debería de estar vacía");
         }
         this.descripcionIncidencia = descripcionIncidencia;
     }
@@ -58,7 +58,7 @@ public class DtoTic
     {
         if (finalizadaPor == null || finalizadaPor.trim().isEmpty())
         {
-            throw new IllegalArgumentException("La descripcion del tic no debería de ser vacía");
+            throw new IllegalArgumentException("Quien finaliza el tic no debería de estar vacío");
         }
         this.finalizadaPor = finalizadaPor;
     }
@@ -67,7 +67,7 @@ public class DtoTic
     {
         if (solucion == null || solucion.trim().isEmpty())
         {
-            throw new IllegalArgumentException("La solucion no de estar vacía");
+            throw new IllegalArgumentException("La solucion no debe estar vacía");
         }
         this.solucion = solucion;
     }

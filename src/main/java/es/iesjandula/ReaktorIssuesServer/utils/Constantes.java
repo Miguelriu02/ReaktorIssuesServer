@@ -18,4 +18,10 @@ public final class Constantes
     public static final String UPDATE_TIC_FAILURE = "No se ha podido modificar la lista de Tics";
     
     public static final String UPDATE_FAILURE_NOT_EXISTS = "La incidencia TIC no existe en la base de datos.";
+    
+    public static final String CORREO_ANDALUCIA = "@g.educaand.es";
+    
+    public static final String CORREO_JANDULA = "@iesjandula.es";
+    
+    public static final String TDE = "fbenchi274@g.educaand.es";
 }
