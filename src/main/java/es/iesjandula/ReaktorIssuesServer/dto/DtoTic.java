@@ -51,6 +51,10 @@ public class DtoTic
         {
             throw new IllegalArgumentException("La descripcion del tic no debería de estar vacía");
         }
+        if(descripcionIncidencia.length() < 12)
+        {
+        	throw new IllegalArgumentException("Deberías de describir mejor la Incidencia");
+        }
         this.descripcionIncidencia = descripcionIncidencia;
     }
 	
