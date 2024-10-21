@@ -30,7 +30,7 @@ public class RestHandlerIssuesServer {
     private ITicRepository iTicRepository;
 
     // Método para recibir nuevas incidencias TIC mediante una solicitud POST usando DtoTic y @RequestBody
-    @RequestMapping(method = RequestMethod.POST, value = "/", consumes = "application/json")
+    @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<?> enviarIncidenciaTic(@RequestBody DtoTic dtoTic)
     {
         try
@@ -99,7 +99,7 @@ public class RestHandlerIssuesServer {
         }
     }
     // Método PUT para actualizar una incidencia TIC usando DtoTic y @RequestBody
-    @RequestMapping(method = RequestMethod.PUT, value = "/", consumes = "application/json")
+    @RequestMapping(method = RequestMethod.PUT, consumes = "application/json")
     public ResponseEntity<?> actualizarTic(
     		@RequestBody DtoTic dtoTic,
     		@RequestHeader(value = "cancelar", required = false) boolean cancelar)
