@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.iesjandula.ReaktorIssuesServer.dto.DtoTic;
@@ -57,15 +57,15 @@ public class RestHandlerIssuesServer {
     // Método para filtrar las Incidencias Tic
     @RequestMapping(method = RequestMethod.GET, value = "/filtrarTic")
     public ResponseEntity<?> filtrarTic(
-            @RequestParam(value = "usuario", required = false, defaultValue = "") String usuario,
-            @RequestParam(value = "correo", required = false) String correo,
-            @RequestParam(value = "aula", required = false) String aula,
-            @RequestParam(value = "fechaDeteccion", required = false) String fechaDeteccion,
-            @RequestParam(value = "mensajeDescriptivo", required = false) String mensaje,
-            @RequestParam(value = "estado", required = false, defaultValue = "") String estadoStr,
-            @RequestParam(value = "finalizadaPor", required = false) String finalizadaPor,
-            @RequestParam(value = "solucion", required = false) String solucion,
-            @RequestParam(value = "fechaSolucion", required = false) String fechaSolucion) 
+            @RequestHeader(value = "usuario", required = false, defaultValue = "") String usuario,
+            @RequestHeader(value = "correo", required = false) String correo,
+            @RequestHeader(value = "aula", required = false) String aula,
+            @RequestHeader(value = "fechaDeteccion", required = false) String fechaDeteccion,
+            @RequestHeader(value = "mensajeDescriptivo", required = false) String mensaje,
+            @RequestHeader(value = "estado", required = false, defaultValue = "") String estadoStr,
+            @RequestHeader(value = "finalizadaPor", required = false) String finalizadaPor,
+            @RequestHeader(value = "solucion", required = false) String solucion,
+            @RequestHeader(value = "fechaSolucion", required = false) String fechaSolucion) 
     {
         try
         {
@@ -102,7 +102,7 @@ public class RestHandlerIssuesServer {
     @RequestMapping(method = RequestMethod.PUT, value = "/", consumes = "application/json")
     public ResponseEntity<?> actualizarTic(
     		@RequestBody DtoTic dtoTic,
-    		@RequestParam(value = "cancelar", required = false) boolean cancelar)
+    		@RequestHeader(value = "cancelar", required = false) boolean cancelar)
     {
         String logMessage = "TIC con Correo: " + dtoTic.getId().getCorreo() + " ha sido modificada correctamente";
         
@@ -144,7 +144,6 @@ public class RestHandlerIssuesServer {
 	            	logMessage = "No puedes cancelar el estado de la Incidencia sin ser el administrador o la misma persona que la creó.";
 	            	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(logMessage);
 	            }
-            	
             }
             else if(dtoTic.getFinalizadaPor().equals(Constantes.TDE))
             {
