@@ -13,7 +13,144 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"id\":\r\n    {\r\n        \"correo\": \"mriogut600@g.educaand.es\",\r\n        \"aula\": \"2\"\r\n    },\r\n    \"descripcionIncidencia\": \"a\"\r\n}\r\n",
+					"raw": "{\r\n    \"id\":\r\n    {\r\n        \"correo\": \"mriogut600@g.educaand.es\",\r\n        \"aula\": \"0.7\"\r\n    },\r\n    \"descripcionIncidencia\": \"Fallas varias la verdad\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8082/incidencias",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"incidencias"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Filtrar Tics",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "usuario",
+						"value": "",
+						"type": "text"
+					},
+					{
+						"key": "correo",
+						"value": "",
+						"type": "text"
+					},
+					{
+						"key": "aula",
+						"value": "",
+						"type": "text"
+					},
+					{
+						"key": "fechaDeteccion",
+						"value": "",
+						"type": "text"
+					},
+					{
+						"key": "mensajeDescriptivo",
+						"value": "",
+						"type": "text"
+					},
+					{
+						"key": "estado",
+						"value": "",
+						"type": "text"
+					},
+					{
+						"key": "solucion",
+						"value": "",
+						"type": "text"
+					},
+					{
+						"key": "fechaSolucion",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8082/incidencias/filtrarTic",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"incidencias",
+						"filtrarTic"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "tde",
+							"disabled": true
+						},
+						{
+							"key": "",
+							"value": "mriogut600@iesjandula.es",
+							"disabled": true
+						},
+						{
+							"key": "",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "",
+							"value": "Finalizado",
+							"disabled": true
+						},
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modificar_Borrar Tic",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "cancelar",
+						"value": "true",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":\r\n    {\r\n        \"aula\": \"0.7\",\r\n        \"correo\": \"mriogut600@g.educaand.es\",\r\n        \"fechaDeteccion\": \"19-10-2024 01:19\"\r\n    },\r\n    \"finalizadaPor\": \"fbenchi274@g.educaand.es\",\r\n    \"solucion\": \"Conectar el cable\"\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -30,102 +167,6 @@
 					"path": [
 						"incidencias",
 						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Filtrar Tics",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8082/incidencias/filtrarTic?usuario=tde",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8082",
-					"path": [
-						"incidencias",
-						"filtrarTic"
-					],
-					"query": [
-						{
-							"key": "usuario",
-							"value": "tde"
-						},
-						{
-							"key": "correo",
-							"value": "mriogut600@iesjandula.es",
-							"disabled": true
-						},
-						{
-							"key": "aula",
-							"value": "1",
-							"disabled": true
-						},
-						{
-							"key": "fechaDeteccion",
-							"value": "",
-							"disabled": true
-						},
-						{
-							"key": "mensajeDescriptivo",
-							"value": "fallo",
-							"disabled": true
-						},
-						{
-							"key": "estado",
-							"value": "Finalizado",
-							"disabled": true
-						},
-						{
-							"key": "solucion",
-							"value": "Conectar",
-							"disabled": true
-						},
-						{
-							"key": "fechaSolucion",
-							"value": "",
-							"disabled": true
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Modificar_Borrar Tic",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"id\":\r\n    {\r\n        \"aula\": \"2\",\r\n        \"correo\": \"mriogut600@g.educaand.es\",\r\n        \"fechaDeteccion\": \"19-10-2024 01:19\"\r\n    },\r\n    \"finalizadaPor\": \"fbenchi274@g.educaand.es\",\r\n    \"solucion\": \"Conectar el cable\"\r\n}\r\n",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8082/incidencias/?cancelar=true",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8082",
-					"path": [
-						"incidencias",
-						""
-					],
-					"query": [
-						{
-							"key": "cancelar",
-							"value": "true"
-						}
 					]
 				}
 			},

@@ -55,6 +55,10 @@ public class DtoTic
         {
         	throw new IllegalArgumentException("Deberías de describir mejor la Incidencia");
         }
+        if(descripcionIncidencia.length() > 100)
+        {
+        	throw new IllegalArgumentException("El mensaje debería de estar más resumido");
+        }
         this.descripcionIncidencia = descripcionIncidencia;
     }
 	

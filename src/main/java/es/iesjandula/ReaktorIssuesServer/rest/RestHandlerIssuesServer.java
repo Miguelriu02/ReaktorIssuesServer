@@ -65,7 +65,9 @@ public class RestHandlerIssuesServer {
             @RequestHeader(value = "estado", required = false, defaultValue = "") String estadoStr,
             @RequestHeader(value = "finalizadaPor", required = false) String finalizadaPor,
             @RequestHeader(value = "solucion", required = false) String solucion,
-            @RequestHeader(value = "fechaSolucion", required = false) String fechaSolucion) 
+            @RequestHeader(value = "fechaSolucion", required = false) String fechaSolucion,
+            @RequestHeader(value = "fechaInicio", required = false) String fechaInicio,
+            @RequestHeader(value = "fechaFin", required = false) String fechaFin) 
     {
         try
         {
@@ -81,7 +83,7 @@ public class RestHandlerIssuesServer {
             if (usuario.toLowerCase().equals("admin") || usuario.toLowerCase().equals("administrador") || usuario.toLowerCase().equals("tde") || usuario.toLowerCase().equals(Constantes.TDE))
             {
             	Estado estado = Enums.stringToEnum(estadoStr);
-                ticsFiltradas = this.iTicRepository.filtrar(correo, aula, fechaDeteccion, mensaje, estado, finalizadaPor, solucion, fechaSolucion);
+                ticsFiltradas = this.iTicRepository.filtrar(correo, aula, fechaDeteccion, mensaje, estado, finalizadaPor, solucion, fechaSolucion, fechaInicio, fechaFin);
             }
             else
             {

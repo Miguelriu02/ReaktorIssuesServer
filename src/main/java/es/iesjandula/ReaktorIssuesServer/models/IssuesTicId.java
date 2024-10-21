@@ -58,7 +58,7 @@ public class IssuesTicId implements Serializable
   	public static String getAhora()
   	{
       	Date today = new Date();
-      	SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+      	SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
       	return formatter.format(today);
   	}
   	

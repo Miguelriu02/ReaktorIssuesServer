@@ -46,7 +46,8 @@ public interface ITicRepository extends JpaRepository<IssuesTic, String> {
             + "(:estado IS NULL OR t.estado = :estado) AND "
             + "(:finalizador IS NULL OR t.finalizadaPor = :finalizador) AND "
             + "(:solucion IS NULL OR t.solucion LIKE %:solucion%) AND "
-            + "(:fechaSolucion IS NULL OR t.fechaSolucion LIKE %:fechaSolucion%)")
+            + "(:fechaSolucion IS NULL OR t.fechaSolucion LIKE %:fechaSolucion%) AND "
+            + "(:fechaInicio IS NULL OR :fechaFin IS NULL OR t.id.fechaDeteccion BETWEEN :fechaInicio AND :fechaFin)")
     List<DtoTic> filtrar(
         @Param("correo") String correo,
         @Param("aula") String aula,
@@ -55,5 +56,8 @@ public interface ITicRepository extends JpaRepository<IssuesTic, String> {
         @Param("estado") Enums.Estado estado,
         @Param("finalizador") String finalizador,
         @Param("solucion") String solucion,
-        @Param("fechaSolucion") String fechaSolucion);
+        @Param("fechaSolucion") String fechaSolucion,
+        @Param("fechaInicio") String fechaInicio,
+        @Param("fechaFin") String fechaFin);
+
 }

@@ -55,7 +55,7 @@ public class IssuesServerError extends Exception
 			String stacktrace = ExceptionUtils.getStackTrace(this.exception);
 			mapError.put("exception", stacktrace);
 		}
-
+		
 		return mapError;
 	}
 }
