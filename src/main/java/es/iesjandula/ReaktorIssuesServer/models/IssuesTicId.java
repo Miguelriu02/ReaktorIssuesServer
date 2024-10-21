@@ -54,7 +54,7 @@ public class IssuesTicId implements Serializable
         this.aula = aula;
     }
     
-  //Funcion que devuelve un String con el Dia, Mes, Año, Hora y Minuto en el momento que se ejecuta.
+    //Funcion que devuelve un String con el Dia, Mes, Año, Hora y Minuto en el momento que se ejecuta.
   	public static String getAhora()
   	{
       	Date today = new Date();
