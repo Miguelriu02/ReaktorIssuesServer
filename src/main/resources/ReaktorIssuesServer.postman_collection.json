@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "f1d1b926-8d31-48fc-a052-30e1f2195b8d",
+		"_postman_id": "cfa399c9-3a4a-4236-a116-bf32ddad24ad",
 		"name": "ReaktorIssuesServer",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "30209860"
@@ -78,6 +78,16 @@
 						"key": "fechaSolucion",
 						"value": "",
 						"type": "text"
+					},
+					{
+						"key": "fechaInicio",
+						"value": "",
+						"type": "text"
+					},
+					{
+						"key": "fechaFin",
+						"value": "",
+						"type": "text"
 					}
 				],
 				"url": {
@@ -90,48 +100,6 @@
 					"path": [
 						"incidencias",
 						"filtrarTic"
-					],
-					"query": [
-						{
-							"key": "",
-							"value": "tde",
-							"disabled": true
-						},
-						{
-							"key": "",
-							"value": "mriogut600@iesjandula.es",
-							"disabled": true
-						},
-						{
-							"key": "",
-							"value": "1",
-							"disabled": true
-						},
-						{
-							"key": "",
-							"value": "",
-							"disabled": true
-						},
-						{
-							"key": "",
-							"value": "",
-							"disabled": true
-						},
-						{
-							"key": "",
-							"value": "Finalizado",
-							"disabled": true
-						},
-						{
-							"key": "",
-							"value": "",
-							"disabled": true
-						},
-						{
-							"key": "",
-							"value": "",
-							"disabled": true
-						}
 					]
 				}
 			},

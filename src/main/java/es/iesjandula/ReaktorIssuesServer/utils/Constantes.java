@@ -24,4 +24,8 @@ public final class Constantes
     public static final String CORREO_JANDULA = "@iesjandula.es";
     
     public static final String TDE = "fbenchi274@g.educaand.es";
+    
+    public static final Integer MIN_LENGTH = 15;
+    
+    public static final Integer MAX_LENGTH = 100;
 }

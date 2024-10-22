@@ -24,7 +24,8 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("/incidencias")
 @Slf4j
-public class RestHandlerIssuesServer {
+public class RestHandlerIssuesServer
+{
 
     @Autowired
     private ITicRepository iTicRepository;

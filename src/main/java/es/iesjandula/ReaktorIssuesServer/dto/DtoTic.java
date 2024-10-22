@@ -1,6 +1,7 @@
 package es.iesjandula.ReaktorIssuesServer.dto;
 
 import es.iesjandula.ReaktorIssuesServer.models.IssuesTicId;
+import es.iesjandula.ReaktorIssuesServer.utils.Constantes;
 import es.iesjandula.ReaktorIssuesServer.utils.Enums.Estado;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -51,13 +52,13 @@ public class DtoTic
         {
             throw new IllegalArgumentException("La descripcion del tic no debería de estar vacía");
         }
-        if(descripcionIncidencia.length() < 12)
+        if(descripcionIncidencia.length() < Constantes.MIN_LENGTH)
         {
-        	throw new IllegalArgumentException("Deberías de describir mejor la Incidencia");
+        	throw new IllegalArgumentException("Deberías de describir mejor la Incidencia.\n Mínimo " + Constantes.MIN_LENGTH + " caracteres");
         }
-        if(descripcionIncidencia.length() > 100)
+        if(descripcionIncidencia.length() > Constantes.MAX_LENGTH)
         {
-        	throw new IllegalArgumentException("El mensaje debería de estar más resumido");
+        	throw new IllegalArgumentException("El mensaje debería de estar más resumido.\n Máximo " + Constantes.MAX_LENGTH + " caracteres");
         }
         this.descripcionIncidencia = descripcionIncidencia;
     }
